@@ -4,7 +4,7 @@ import {
   presetUno,
   presetIcons,
   presetWebFonts,
-  presetAttributify,
+  // presetAttributify,
 } from 'unocss'
 import { presetForms } from '@julr/unocss-preset-forms'
 
@@ -15,10 +15,12 @@ export default defineConfig({
     presetWebFonts({
       provider: 'google',
       fonts: {
-        lato:'Lato',
+        lato: 'Lato',
       },
     }),
-    presetAttributify(),
-//    presetForms(),
+    // presetAttributify(),
+    presetForms(),
   ],
+
+  safelist: ['i-mdi:facebook', 'i-mdi-github'],
 })
