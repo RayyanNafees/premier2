@@ -5,9 +5,9 @@ const def = {
   image:
     'https://tailwindui.com/img/ecommerce-images/home-page-01-hero-full-width.jpg',
   title: 'Premier Enterprises',
-  subtitle: `The new arrivals have, well, newly arrived. Check out the latest options
-      from our summer small-batch release while they're still in stock.`,
-  a_href: '#',
+  subtitle: `Shop exclusive Furniture, Instruments & House Decor
+  at reasonable prices.`,
+  a_href: 'shop',
   a_text: 'shop now',
 }
 
@@ -28,12 +28,16 @@ const {
 <div class='relative bg-gray-900 w-full'>
   <!-- Decorative image and overlay -->
   <div aria-hidden='true' class='absolute inset-0 overflow-hidden'>
-    <Image src={sofa} alt='' class='aspect-auto object-center object-cover' />
+    <Image
+      src={sofa}
+      alt=''
+      class='aspect-auto h-80 object-center object-cover'
+    />
   </div>
   <div aria-hidden='true' class='absolute inset-0 bg-gray-900 opacity-50'></div>
 
   <div
-    class='relative max-w-7xl mx-auto px-6 flex flex-col items-end text-end justify-end sm:py-20 lg:px-0'
+    class='relative max-w-7xl mx-auto px-6 flex flex-col items-end text-end justify-end sm:py-15 lg:px-0'
   >
     <h1 class='text-4xl font-extrabold tracking-tight text-white lg:text-6xl'>
       {title}
