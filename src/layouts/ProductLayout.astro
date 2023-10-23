@@ -1,5 +1,9 @@
 ---
 import Layout from './Layout.astro'
+
+export interface Props{
+  
+}
 ---
 
 <Layout>
@@ -305,7 +309,7 @@ import Layout from './Layout.astro'
                       for='filter-mobile-category-0'
                       class='ml-3 min-w-0 flex-1 text-gray-500'
                     >
-                      New Arrivals
+                      Furnitures
                     </label>
                   </div>
 
@@ -540,7 +544,7 @@ import Layout from './Layout.astro'
           </h1>
 
           <div class='flex items-center'>
-            <div class='relative inline-block text-left'>
+            <div class='relative inline-block text-left group'>
               <div>
                 <button
                   type='button'
@@ -577,7 +581,7 @@ import Layout from './Layout.astro'
                 To: "transform opacity-0 scale-95"
             -->
               <div
-                class='origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'
+                class='hidden group-focus:block origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'
                 role='menu'
                 aria-orientation='vertical'
                 aria-labelledby='menu-button'

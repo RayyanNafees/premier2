@@ -1,6 +1,21 @@
 ---
-const pages = ['1', '2', '3', , '...', '8', '9', '10']
-const currentPage = '1'
+import range from '../../utils/range'
+export interface Props {
+  currentPage: number
+  totalPages: number
+  perPage: number
+}
+// const pages = ['1', '2', '3', , '...', '8', '9', '10']
+
+const { totalPages, currentPage, perPage } = Astro.props
+const page_range = range(totalPages)
+
+const [first, second, third, ...etc] = page_range
+
+const pages =
+  totalPages > 8
+    ? [first, second, third, '...', etc.at(-3), etc.at(-2), etc.at(-1)]
+    : page_range
 ---
 
 <div class='max-w-screen-xl mx-auto mt-12 px-4 text-gray-600 md:px-8'>

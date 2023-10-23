@@ -4,28 +4,30 @@ import ProductListing2D, {
   type Product,
 } from '../components/products/ProductListing2D.astro'
 import ProductLayout from '../layouts/ProductLayout.astro'
-import pb from '../lib/pb'
-import type {RecordModel} from 'pocketbase'
+import pb, { filecdn } from '../lib/pb'
+import type { RecordModel } from 'pocketbase'
 
-const imgcdn = (
-  collection_id: string,
-  record_id: string,
-  filename: string
-): string =>
-  `https://premier.pockethost.io/api/files/${collection_id}/${record_id}/${filename}`
-
-const records = (await pb.collection('FURNITURE').getList(1, 20)).items
+const {
+  items: records,
+  page,
+  perPage,
+  totalPages,
+  totalItems,
+} = await pb.collection('FURNITURE').getList(1, 20)
 
 const products: Product[] = records.map((r: RecordModel) => ({
   name: r.Name,
-  image: imgcdn(r.collectionId, r.id, r.Image[0]),
+  image: filecdn(r.collectionId, r.id, r.Image[0]),
   model: r.Model,
   id: r.id,
   alt_text: `${r.Name} | ${r.Model}`,
 }))
+
+const need_pagination = totalItems > perPage
 ---
 
 <ProductLayout>
   <ProductListing2D {products} />
-  <Pagination />
+  {need_pagination && <Pagination {totalPages} currentPage={page} {perPage} />}
+
 </ProductLayout>
