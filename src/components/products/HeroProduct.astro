@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets'
+import sofa from '../../assets/sofa.svg'
+const def = {
+  image:
+    'https://tailwindui.com/img/ecommerce-images/home-page-01-hero-full-width.jpg',
+  title: 'Premier Enterprises',
+  subtitle: `The new arrivals have, well, newly arrived. Check out the latest options
+      from our summer small-batch release while they're still in stock.`,
+  a_href: '#',
+  a_text: 'shop now',
+}
+
+export interface Props {
+  title?: string
+  subtitle?: string
+  a_text?: string
+  a_href?: string
+}
+const {
+  title = def.title,
+  subtitle = def.subtitle,
+  a_href = def.a_href,
+  a_text = def.a_text,
+} = Astro.props
+---
+
+<div class='relative bg-gray-900 w-full'>
+  <!-- Decorative image and overlay -->
+  <div aria-hidden='true' class='absolute inset-0 overflow-hidden'>
+    <Image src={sofa} alt='' class='aspect-auto object-center object-cover' />
+  </div>
+  <div aria-hidden='true' class='absolute inset-0 bg-gray-900 opacity-50'></div>
+
+  <div
+    class='relative max-w-7xl mx-auto px-6 flex flex-col items-end text-end justify-end sm:py-20 lg:px-0'
+  >
+    <h1 class='text-4xl font-extrabold tracking-tight text-white lg:text-6xl'>
+      {title}
+    </h1>
+    <p class='mt-4 text-xl text-white'>
+      {subtitle}
+    </p>
+    <a
+      href={a_href}
+      class='mt-8 inline-block bg-white border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 capitalize'
+      >{a_text}</a
+    >
+  </div>
+</div>
