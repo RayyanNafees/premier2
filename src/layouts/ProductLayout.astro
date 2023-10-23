@@ -1,14 +1,30 @@
 ---
 import Layout from './Layout.astro'
 import { capitalize_col } from '../utils/transforms'
-import pb, { adminauth } from '../lib/pb'
-await adminauth()
-const fields: Array<string> = []
+import {error} from '../utils/debug'
+import pb from '../lib/pb'
 
-pb.collections
-  .getFullList()
-  .then((colarr) => colarr.map((col) => fields.push(capitalize_col(col.name))))
-  .catch((e) => console.log(e))
+const fields: Array<string> = ['Furnitures']
+
+
+
+try{
+
+   await pb.admins.authWithPassword('web@gmail.com', 'premierweb').catch(error)
+}
+catch(e){
+  console.log(Object.keys(e))
+};
+
+
+if (pb.authStore.isAdmin)
+  pb.collections
+    .getFullList()
+    .then((colarr) =>
+      colarr.map((col) => fields.push(capitalize_col(col.name)))
+    )
+    .catch(error)
+
 ---
 
 <Layout>
