@@ -8,3 +8,6 @@ export const filecdn = (
   filename: string
 ) =>
   `https://premier.pockethost.io/api/files/${collection_id}/${record_id}/${filename}`
+
+export const adminauth = async () =>
+  await pb.admins.authWithPassword('premier@gmail.com', 'premierentp')

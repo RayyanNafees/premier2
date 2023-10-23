@@ -5,22 +5,22 @@ import {
   presetIcons,
   presetWebFonts,
   // presetAttributify,
-} from 'unocss'
-import { presetForms } from '@julr/unocss-preset-forms'
+} from "unocss";
+import { presetForms } from "@julr/unocss-preset-forms";
 
 export default defineConfig({
   presets: [
     presetUno(),
     presetIcons(),
     presetWebFonts({
-      provider: 'google',
+      provider: "google",
       fonts: {
-        lato: 'Lato',
+        lato: "Lato",
       },
     }),
     // presetAttributify(),
     presetForms(),
   ],
 
-  safelist: ['i-mdi:facebook', 'i-mdi-github'],
-})
+  safelist: ["i-mdi:facebook", "i-mdi-github"],
+});

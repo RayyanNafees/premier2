@@ -1,9 +1,14 @@
 ---
 import Layout from './Layout.astro'
+import { capitalize_col } from '../utils/transforms'
+import pb, { adminauth } from '../lib/pb'
+await adminauth()
+const fields: Array<string> = []
 
-export interface Props{
-  
-}
+pb.collections
+  .getFullList()
+  .then((colarr) => colarr.map((col) => fields.push(capitalize_col(col.name))))
+  .catch((e) => console.log(e))
 ---
 
 <Layout>
@@ -74,25 +79,15 @@ export interface Props{
           <form class='mt-4 border-t border-gray-200'>
             <h3 class='sr-only'>Categories</h3>
             <ul role='list' class='font-medium text-gray-900 px-2 py-3'>
-              <li>
-                <a href='#' class='block px-2 py-3'> Totes</a>
-              </li>
-
-              <li>
-                <a href='#' class='block px-2 py-3'> Backpacks</a>
-              </li>
-
-              <li>
-                <a href='#' class='block px-2 py-3'> Travel Bags</a>
-              </li>
-
-              <li>
-                <a href='#' class='block px-2 py-3'> Hip Bags</a>
-              </li>
-
-              <li>
-                <a href='#' class='block px-2 py-3'> Laptop Sleeves</a>
-              </li>
+              {
+                fields.map((field: string) => (
+                  <li>
+                    <a href='#' class='block px-2 py-3'>
+                      {field}
+                    </a>
+                  </li>
+                ))
+              }
             </ul>
 
             <div class='border-t border-gray-200 px-4 py-6'>
@@ -540,7 +535,7 @@ export interface Props{
           class='relative z-10 flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200'
         >
           <h1 class='text-4xl font-extrabold tracking-tight text-gray-900'>
-            New Arrivals
+            Premier
           </h1>
 
           <div class='flex items-center'>
@@ -697,25 +692,13 @@ export interface Props{
                 role='list'
                 class='text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200'
               >
-                <li>
-                  <a href='#'> Totes</a>
-                </li>
-
-                <li>
-                  <a href='#'> Backpacks</a>
-                </li>
-
-                <li>
-                  <a href='#'> Travel Bags</a>
-                </li>
-
-                <li>
-                  <a href='#'> Hip Bags</a>
-                </li>
-
-                <li>
-                  <a href='#'> Laptop Sleeves</a>
-                </li>
+                {
+                  fields.map((i) => (
+                    <li>
+                      <a href='#'> {i}</a>
+                    </li>
+                  ))
+                }
               </ul>
 
               <div class='border-b border-gray-200 py-6'>
