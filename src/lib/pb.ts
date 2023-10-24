@@ -1,6 +1,8 @@
 import Pocketbase from 'pocketbase'
 const pb = new Pocketbase('https://premier.pockethost.io')
-export default pb
+
+
+pb.autoCancellation(false) //BUG:
 
 export const filecdn = (
   collection_id: string,
@@ -11,3 +13,5 @@ export const filecdn = (
 
 export const adminauth =  () =>
    pb.admins.authWithPassword('premier@gmail.com', 'premierentp')
+
+export default pb

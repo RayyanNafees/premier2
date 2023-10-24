@@ -1,0 +1,1 @@
+{"url":"https://premier.pockethost.io/api/admins/auth-with-password","status":400,"response":{"code":400,"message":"Failed to authenticate.","data":{}},"isAbort":false,"originalError":{"url":"https://premier.pockethost.io/api/admins/auth-with-password","status":400,"data":{"code":400,"message":"Failed to authenticate.","data":{}}},"name":"ClientResponseError 400"}

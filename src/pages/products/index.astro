@@ -1,10 +1,10 @@
 ---
-import Pagination from '../components/products/Pagination.astro'
+import Pagination from '../../components/products/Pagination.astro'
 import ProductListing2D, {
   type Product,
-} from '../components/products/ProductListing.astro'
-import ProductLayout from '../layouts/ProductLayout.astro'
-import pb, { filecdn } from '../lib/pb'
+} from '../../components/products/ProductListing.astro'
+import ProductLayout from '../../layouts/ProductLayout.astro'
+import pb, { filecdn } from '../../lib/pb'
 
 const {
   items: records,
@@ -28,5 +28,4 @@ const need_pagination = totalItems > perPage
 <ProductLayout>
   <ProductListing2D {products} />
   {need_pagination && <Pagination {totalPages} currentPage={page} {perPage} />}
-
 </ProductLayout>

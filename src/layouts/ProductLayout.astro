@@ -1,29 +1,27 @@
 ---
 import Layout from './Layout.astro'
 import { capitalize_col } from '../utils/transforms'
-import {error} from '../utils/debug'
-import pb from '../lib/pb'
+import pb , {adminauth}from '../lib/pb'
 
-const fields: Array<string> = ['Furnitures']
+const fields: Array<string> = []
 
+// const authData = await pb.admins?.authWithPassword?.('web@gmail.com', 'premierweb').catch(error);
+// console.log(authData)
+await adminauth()
 
+if (pb.authStore?.isAdmin)
+  await pb.collections
+    .getFullList(
+      {
+      filter: 'name != "Users"',
+      sort: '-created'
+    }
 
-try{
-
-   await pb.admins.authWithPassword('web@gmail.com', 'premierweb').catch(error)
-}
-catch(e){
-  console.log(Object.keys(e))
-};
-
-
-if (pb.authStore.isAdmin)
-  pb.collections
-    .getFullList()
+    )
     .then((colarr) =>
       colarr.map((col) => fields.push(capitalize_col(col.name)))
     )
-    .catch(error)
+console.log('Fields', fields)
 
 ---
 
@@ -96,7 +94,7 @@ if (pb.authStore.isAdmin)
             <h3 class='sr-only'>Categories</h3>
             <ul role='list' class='font-medium text-gray-900 px-2 py-3'>
               {
-                fields.map((field: string) => (
+                fields.filter(i=> i!='Users').map((field: string) => (
                   <li>
                     <a href='#' class='block px-2 py-3'>
                       {field}
@@ -592,7 +590,7 @@ if (pb.authStore.isAdmin)
                 To: "transform opacity-0 scale-95"
             -->
               <div
-                class='hidden group-focus:block origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'
+                class='hidden group-hover:block origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'
                 role='menu'
                 aria-orientation='vertical'
                 aria-labelledby='menu-button'
@@ -709,7 +707,7 @@ if (pb.authStore.isAdmin)
                 class='text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200'
               >
                 {
-                  fields.map((i) => (
+                  fields.filter(i=>i!='Users').map((i) => (
                     <li>
                       <a href='#'> {i}</a>
                     </li>
