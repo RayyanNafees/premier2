@@ -1,0 +1,31 @@
+---
+import Pagination from '../../components/products/Pagination.astro'
+import ProductListing2D, {
+  type Product,
+} from '../../components/products/ProductListing.astro'
+import ProductLayout from '../../layouts/ProductLayout.astro'
+import pb, { filecdn } from '../../lib/pb'
+
+const {
+  items: records,
+  page,
+  perPage,
+  totalPages,
+  totalItems,
+} = await pb.collection('FURNITURE').getList(1, 20)
+
+const products: Product[] = records.map((r) => ({
+  name: r.Name,
+  image: filecdn(r.collectionId, r.id, r.Image[0]),
+  model: r.Model,
+  id: r.id,
+  alt_text: `${r.Name} | ${r.Model}`,
+}))
+
+const need_pagination = totalItems > perPage
+---
+
+<ProductLayout>
+  <ProductListing2D {products} />
+  {need_pagination && <Pagination {totalPages} currentPage={page} {perPage} />}
+</ProductLayout>

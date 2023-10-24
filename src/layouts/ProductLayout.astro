@@ -1,5 +1,28 @@
 ---
 import Layout from './Layout.astro'
+import { capitalize_col } from '../utils/transforms'
+import pb , {adminauth}from '../lib/pb'
+
+const fields: Array<string> = []
+
+// const authData = await pb.admins?.authWithPassword?.('web@gmail.com', 'premierweb').catch(error);
+// console.log(authData)
+await adminauth()
+
+if (pb.authStore?.isAdmin)
+  await pb.collections
+    .getFullList(
+      {
+      filter: 'name != "Users"',
+      sort: '-created'
+    }
+
+    )
+    .then((colarr) =>
+      colarr.map((col) => fields.push(capitalize_col(col.name)))
+    )
+console.log('Fields', fields)
+
 ---
 
 <Layout>
@@ -70,25 +93,15 @@ import Layout from './Layout.astro'
           <form class='mt-4 border-t border-gray-200'>
             <h3 class='sr-only'>Categories</h3>
             <ul role='list' class='font-medium text-gray-900 px-2 py-3'>
-              <li>
-                <a href='#' class='block px-2 py-3'> Totes</a>
-              </li>
-
-              <li>
-                <a href='#' class='block px-2 py-3'> Backpacks</a>
-              </li>
-
-              <li>
-                <a href='#' class='block px-2 py-3'> Travel Bags</a>
-              </li>
-
-              <li>
-                <a href='#' class='block px-2 py-3'> Hip Bags</a>
-              </li>
-
-              <li>
-                <a href='#' class='block px-2 py-3'> Laptop Sleeves</a>
-              </li>
+              {
+                fields.filter(i=> i!='Users').map((field: string) => (
+                  <li>
+                    <a href='#' class='block px-2 py-3'>
+                      {field}
+                    </a>
+                  </li>
+                ))
+              }
             </ul>
 
             <div class='border-t border-gray-200 px-4 py-6'>
@@ -305,7 +318,7 @@ import Layout from './Layout.astro'
                       for='filter-mobile-category-0'
                       class='ml-3 min-w-0 flex-1 text-gray-500'
                     >
-                      New Arrivals
+                      Furnitures
                     </label>
                   </div>
 
@@ -536,11 +549,11 @@ import Layout from './Layout.astro'
           class='relative z-10 flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200'
         >
           <h1 class='text-4xl font-extrabold tracking-tight text-gray-900'>
-            New Arrivals
+            Premier
           </h1>
 
           <div class='flex items-center'>
-            <div class='relative inline-block text-left'>
+            <div class='relative inline-block text-left group'>
               <div>
                 <button
                   type='button'
@@ -577,7 +590,7 @@ import Layout from './Layout.astro'
                 To: "transform opacity-0 scale-95"
             -->
               <div
-                class='origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'
+                class='hidden group-hover:block origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'
                 role='menu'
                 aria-orientation='vertical'
                 aria-labelledby='menu-button'
@@ -693,25 +706,13 @@ import Layout from './Layout.astro'
                 role='list'
                 class='text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200'
               >
-                <li>
-                  <a href='#'> Totes</a>
-                </li>
-
-                <li>
-                  <a href='#'> Backpacks</a>
-                </li>
-
-                <li>
-                  <a href='#'> Travel Bags</a>
-                </li>
-
-                <li>
-                  <a href='#'> Hip Bags</a>
-                </li>
-
-                <li>
-                  <a href='#'> Laptop Sleeves</a>
-                </li>
+                {
+                  fields.filter(i=>i!='Users').map((i) => (
+                    <li>
+                      <a href='#'> {i}</a>
+                    </li>
+                  ))
+                }
               </ul>
 
               <div class='border-b border-gray-200 py-6'>
