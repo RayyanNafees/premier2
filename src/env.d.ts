@@ -1,8 +1,8 @@
 /// <reference types="astro/client" />
 interface ImportMetaEnv {
-  readonly PUBLIC_PB_PASS: string;
-  readonly PUBLIC_PB_HOST: string;
-  readonly PUBLIC_PB_EMAIL: string;
+  readonly PB_PASS: string;
+  readonly PB_HOST: string;
+  readonly PB_EMAIL: string;
   // more env variables...
 }
 
