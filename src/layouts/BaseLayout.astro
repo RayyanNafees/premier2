@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
+// import { ViewTransitions } from 'astro:transitions';
 
 export interface Props {
   htmlclass?: Array<Record<string, boolean> | string | boolean>
@@ -29,7 +29,7 @@ const {htmlclass=[], bodyclass=[]} = Astro.props
     <meta name='author' content='premier' />
 
     <title>Premier Enterprise</title>
-    <ViewTransitions />
+    <!-- <ViewTransitions /> -->
   </head>
   <body class="font-lato" class:list={bodyclass}>
     <slot />

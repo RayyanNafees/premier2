@@ -1,18 +1,32 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import ProductDetail from '@/components/products/ProductDetail.astro'
-import type { Product } from '@/components/products/ProductListing.astro';
-const {
-  name: title,
-  href,
-  image,
-  alt_text: string
-  model: sub_ttle
+import type { Product } from '@/components/products/ProductListing.astro'
+import pb from '@/lib/pb'
 
-}: Product = Astro.url.searchParams
-
+const { col = '', id = '' } = Astro.params
+// name: r.Name,
+//   image: filecdn(r.collectionId, r.id, r.Image[0]),
+//   model: r.Model,
+//   href: r.id,
+//   alt_text: `${r.Name} | ${r.Model}`,
+// const model = await pb
+//   .collection(col)
+//   .getOne(id)
+//   .catch((e) => console.log('NOT FOUND'))
+// console.log(model)
 ---
 
 <Layout>
-  <ProductDetail />
+  <!-- <ProductDetail
+    title={Name}
+    ,
+    subtitle={Model}
+    ,
+    views={4}
+    details={Details}
+    
+    sizes={Sizes}
+  /> -->
+  {JSON.stringify(model)}
 </Layout>

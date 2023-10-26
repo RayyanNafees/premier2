@@ -13,6 +13,7 @@ export interface Props {
 }
 
 const { products } = Astro.props
+
 const obj2query = (obj: Product) =>
   '?' +
   Object.entries(obj)
@@ -31,7 +32,10 @@ const obj2query = (obj: Product) =>
     >
       {
         products.map((p: Product) => (
-          <a href={p.href + obj2query(p) || '#'} class='group product-thumb'>
+          <a
+            href={/*'/' + p.href + obj2query(p) ||*/ '#'}
+            class='group product-thumb'
+          >
             <div class='w-full aspect-square bg-gray-200 rounded-lg overflow-hidden xl:aspect-[7/8]'>
               <Image
                 src={p.image}
