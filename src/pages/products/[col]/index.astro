@@ -21,26 +21,28 @@ const {
 } = await pb
   .collection(col.toUpperCase()) // BUG
   .getList(1, 20)
-  .catch((e) => log({} as ListResult<RecordModel>, 'Nothing foun for' + col)) 
+  .catch((e) => log({} as ListResult<RecordModel>, 'Nothing foun for' + col))
 
 const products: Product[] = records.map((r) => ({
-  name: r.Name,
-  image: filecdn(r.collectionId, r.id, r.Image[0]),
-  model: r.Model,
-  href: r.id,
-  alt_text: `${r.Name} | ${r.Model}`,
+  name: r.name,
+  image: filecdn(r.collectionId, r.id, r.images[0]),
+  model: r.model,
+  href: `${col}/${r.id}`,
+  alt_text: `${r.name} | ${r.model}`,
 }))
 
 const fields: Array<string> = []
 
-await adminauth()
+if (!pb.authStore?.isAdmin) {
+  await adminauth()
+}
 
-if (pb.authStore?.isAdmin) (await colNames()).map((c) => fields.push(c))
+;(await colNames()).map((c) => fields.push(c))
 
 const need_pagination = totalItems > perPage
 ---
 
 <ProductLayout {fields}>
-  <ProductListing {products} />
+  <ProductListing {products}/>
   {need_pagination && <Pagination {totalPages} currentPage={page} {perPage} />}
 </ProductLayout>
