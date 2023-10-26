@@ -1,6 +1,6 @@
 ---
 import Layout from './Layout.astro'
-
+import {colify} from '@/utils/transforms'
 export interface Props {
   fields : Array<string>
 }
@@ -692,7 +692,7 @@ const {fields=[]} = Astro.props
                 {
                   fields.filter(i=>i!='Users').map((i) => (
                     <li>
-                      <a href='#'> {i}</a>
+                      <a href={colify(i)}> {i}</a>
                     </li>
                   ))
                 }

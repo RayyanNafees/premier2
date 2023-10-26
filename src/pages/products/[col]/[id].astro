@@ -1,32 +1,22 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import ProductDetail from '@/components/products/ProductDetail.astro'
-import type { Product } from '@/components/products/ProductListing.astro'
-import pb from '@/lib/pb'
+import pb, { filecdn } from '@/lib/pb'
+import type { RecordModel } from 'pocketbase'
+const { col = 'FURNITURE', id = 'yivca5y7aebs6ub' } = Astro.params
 
-const { col = '', id = '' } = Astro.params
-// name: r.Name,
-//   image: filecdn(r.collectionId, r.id, r.Image[0]),
-//   model: r.Model,
-//   href: r.id,
-//   alt_text: `${r.Name} | ${r.Model}`,
-// const model = await pb
-//   .collection(col)
-//   .getOne(id)
-//   .catch((e) => console.log('NOT FOUND'))
-// console.log(model)
+const { name, images, model, details }= await pb
+  .collection(col.toUpperCase())
+  .getOne(id)
+  .catch((e) => ({}) as RecordModel)
 ---
 
 <Layout>
-  <!-- <ProductDetail
-    title={Name}
-    ,
-    subtitle={Model}
-    ,
+  <ProductDetail
+    title={name}
+    subtitle={model}
     views={4}
-    details={Details}
-    
-    sizes={Sizes}
-  /> -->
-  {JSON.stringify(model)}
+    details={details}
+    images={images?.map((src: string) => filecdn(col.toUpperCase(), id, src))}
+  />
 </Layout>
