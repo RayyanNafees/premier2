@@ -13,6 +13,12 @@ export interface Props {
 }
 
 const { products } = Astro.props
+
+const obj2query = (obj: Product) =>
+  '?' +
+  Object.entries(obj)
+    .map(([k, v]) => `${k}=${Array.isArray(v) ? v[0] : v}`)
+    .join('&')
 ---
 
 <div class='bg-white'>
@@ -26,24 +32,28 @@ const { products } = Astro.props
     >
       {
         products.map((p: Product) => (
-          <a href={p.href || '#'} class='group product-thumb'>
+          <a
+            href={/*'/' + p.href + obj2query(p) ||*/ '#'}
+            class='group product-thumb'
+          >
             <div class='w-full aspect-square bg-gray-200 rounded-lg overflow-hidden xl:aspect-[7/8]'>
               <Image
                 src={p.image}
                 alt={p.alt_text}
-                width="80"
-                height="100"
+                width='80'
+                height='100'
                 class='w-full h-full object-center object-cover group-hover:opacity-75'
               />
             </div>
             <h3 class='mt-4 text-xs text-gray-700 lowercase'>{p.model}</h3>
             {p.model && (
-              <p class='mt-1 text-lg font-medium text-gray-900 capitalize'>{p.name}</p>
+              <p class='mt-1 text-lg font-medium text-gray-900 capitalize'>
+                {p.name}
+              </p>
             )}
           </a>
         ))
       }
-
     </div>
   </div>
 </div>

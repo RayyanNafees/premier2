@@ -1,0 +1,46 @@
+---
+import Pagination from '@/components/products/Pagination.astro'
+import ProductListing, {
+  type Product,
+} from '@/components/products/ProductListing.astro'
+import ProductLayout from '@/layouts/ProductLayout.astro'
+import pb, { adminauth, colNames, filecdn } from '@/lib/pb'
+import { log } from '@/utils/debug'
+import type { ListResult, RecordModel } from 'pocketbase'
+const { col = 'FURNITURE' } = Astro.params
+
+if (col == 'service-worker.js')
+  return new Response('Not found', { status: 404 })
+
+const {
+  items: records = [],
+  page = 1,
+  perPage = 10,
+  totalPages = 10,
+  totalItems = 10,
+} = await pb
+  .collection(col.toUpperCase()) // BUG
+  .getList(1, 20)
+  .catch((e) => log({} as ListResult<RecordModel>, 'Nothing foun for' + col)) 
+
+const products: Product[] = records.map((r) => ({
+  name: r.Name,
+  image: filecdn(r.collectionId, r.id, r.Image[0]),
+  model: r.Model,
+  href: r.id,
+  alt_text: `${r.Name} | ${r.Model}`,
+}))
+
+const fields: Array<string> = []
+
+await adminauth()
+
+if (pb.authStore?.isAdmin) (await colNames()).map((c) => fields.push(c))
+
+const need_pagination = totalItems > perPage
+---
+
+<ProductLayout {fields}>
+  <ProductListing {products} />
+  {need_pagination && <Pagination {totalPages} currentPage={page} {perPage} />}
+</ProductLayout>

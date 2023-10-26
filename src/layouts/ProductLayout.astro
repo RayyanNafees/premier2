@@ -1,27 +1,10 @@
 ---
 import Layout from './Layout.astro'
-import { capitalize_col } from '../utils/transforms'
-import pb , {adminauth}from '../lib/pb'
 
-const fields: Array<string> = []
-
-// const authData = await pb.admins?.authWithPassword?.('web@gmail.com', 'premierweb').catch(error);
-// console.log(authData)
-await adminauth()
-
-if (pb.authStore?.isAdmin)
-  await pb.collections
-    .getFullList(
-      {
-      filter: 'name != "Users"',
-      sort: '-created'
-    }
-
-    )
-    .then((colarr) =>
-      colarr.map((col) => fields.push(capitalize_col(col.name)))
-    )
-console.log('Fields', fields)
+export interface Props {
+  fields : Array<string>
+}
+const {fields=[]} = Astro.props
 
 ---
 
