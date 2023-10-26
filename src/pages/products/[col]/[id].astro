@@ -1,0 +1,18 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import ProductDetail from '@/components/products/ProductDetail.astro'
+import type { Product } from '@/components/products/ProductListing.astro';
+const {
+  name: title,
+  href,
+  image,
+  alt_text: string
+  model: sub_ttle
+
+}: Product = Astro.url.searchParams
+
+---
+
+<Layout>
+  <ProductDetail />
+</Layout>
