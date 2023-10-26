@@ -5,7 +5,14 @@ import pb, { filecdn } from '@/lib/pb'
 import type { RecordModel } from 'pocketbase'
 const { col = 'FURNITURE', id = 'yivca5y7aebs6ub' } = Astro.params
 
-const { name, images, model, details }= await pb
+const {
+  name,
+  images,
+  model,
+  details,
+  views = 4,
+  size,
+} = await pb
   .collection(col.toUpperCase())
   .getOne(id)
   .catch((e) => ({}) as RecordModel)
@@ -15,8 +22,9 @@ const { name, images, model, details }= await pb
   <ProductDetail
     title={name}
     subtitle={model}
-    views={4}
-    details={details}
+    {size}
+    {views}
+    {details}
     images={images?.map((src: string) => filecdn(col.toUpperCase(), id, src))}
   />
 </Layout>
