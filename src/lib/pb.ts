@@ -13,10 +13,10 @@ export const filecdn = (
 
 export const adminauth = () => pb.admins.authWithPassword(PB_EMAIL, PB_PASS)
 
-export const colNames = () =>
+export const colNames = (capitalize=true) =>
   pb.collections
     .getFullList({
       sort: '-created',
     })
-    .then((colarr) => colarr.map((col) => capitalize_col(col.name)))
+    .then((colarr) => colarr.map((col) =>capitalize? capitalize_col(col.name):col.name))
 export default pb

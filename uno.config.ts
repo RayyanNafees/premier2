@@ -4,6 +4,7 @@ import {
   presetUno,
   presetIcons,
   presetWebFonts,
+  presetTypography,
   // presetAttributify,
 } from "unocss";
 import { presetForms } from "@julr/unocss-preset-forms";
@@ -20,6 +21,7 @@ export default defineConfig({
     }),
     // presetAttributify(),
     presetForms(),
+    presetTypography()
   ],
 
   safelist: ["i-mdi:facebook", "i-mdi-github"],
