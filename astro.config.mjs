@@ -1,7 +1,6 @@
 import { defineConfig } from "astro/config";
 import prefetch from "@astrojs/prefetch";
 import sitemap from "@astrojs/sitemap";
-import solidJs from "@astrojs/solid-js";
 import UnoCSS from "unocss/astro";
 import serviceWorker from "astrojs-service-worker";
 
@@ -17,7 +16,6 @@ export default defineConfig({
     }),
     prefetch(),
     sitemap(),
-    solidJs(),
     serviceWorker()
   ],
 });

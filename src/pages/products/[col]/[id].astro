@@ -15,10 +15,10 @@ const {
 } = await pb
   .collection(col.toUpperCase())
   .getOne(id)
-  .catch((e) => ({}) as RecordModel)
+  .catch((e) => ({e}) as RecordModel)
 ---
 
-<Layout>
+<Layout>  
   <ProductDetail
     title={name}
     subtitle={model}
