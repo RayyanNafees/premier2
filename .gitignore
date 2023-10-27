@@ -9,6 +9,9 @@ dist/
 # IDE
 .vscode
 
+# local server
+server
+
 # dependencies
 node_modules/
 
