@@ -16,7 +16,6 @@ import type { RecordModel } from 'pocketbase'
 import { capitalize_col } from '@/utils/transforms'
 
 await adminauth()
-
 if (pb.authStore?.isAdmin) {
   const col_names = await colNames(false)
 
@@ -52,9 +51,9 @@ if (pb.authStore?.isAdmin) {
 
 <BaseLayout>
   <Navbar />
-  <HeroProduct />
+  <Carousel items={$cols.get()} />
+  <!-- <HeroProduct /> -->
   <ProductGroups />
-  <Carousel total={4} />
   <Incentive />
   <TrustedBy />
   <WideProduct />

@@ -1,46 +1,50 @@
 ---
-import './carousel.css'
-import type { Collection } from './types'
-
+import type { Collection } from '@/components/products/types'
+import HeroProduct from './HeroProduct.astro'
 export interface Props {
-  total: number
-  items?: Collection[]
+  items: Array<Collection>
 }
 
-const { total = 4, items = [1,2,3,4] } = Astro.props
+const { items = [] } = Astro.props
 ---
 
-<section class='carousel' aria-label='Gallery'>
-  <ol class='carousel__viewport'>
-    {
-      items.map((item, n) => (
-        <li id={`carousel__slide${n + 1}`} tabindex='0' class='carousel__slide'>
-          <div class='carousel__snapper'>
-            <a href={`#carousel__slide${total - n}`} class='carousel__prev'>
-              Go to last slide
-            </a>
-            <a href={`#carousel__slide${n + 2}`} class='carousel__next'>
-              Go to next slide
-            </a>
-          </div>
-        </li>
-      ))
-    }
-  </ol>
-  <aside class='carousel__navigation'>
-    <ol class='carousel__navigation-list'>
-      {
-        items.map((_, n) => (
-          <li class='carousel__navigation-item'>
-            <a
-              href={`#carousel__slide${n + 1}`}
-              class='carousel__navigation-button'
-            >
-              Go to slide {n + 1}
-            </a>
-          </li>
-        ))
-      }
-    </ol>
-  </aside>
-</section>
+<div class='carousel w-full'>
+  {
+    items.map((item) => (
+      <div id='item1' class='carousel-item w-full'>
+        <HeroProduct
+          title={item.name}
+          subtitle={item.details}
+          a_href={item.href}
+        />
+      </div>
+    ))
+  }
+  <div id='item2' class='carousel-item w-full'>
+    <img
+      src='/images/stock/photo-1609621838510-5ad474b7d25d.jpg'
+      class='w-full'
+    />
+  </div>
+  <div id='item3' class='carousel-item w-full'>
+    <img
+      src='/images/stock/photo-1414694762283-acccc27bca85.jpg'
+      class='w-full'
+    />
+  </div>
+  <div id='item4' class='carousel-item w-full'>
+    <img
+      src='/images/stock/photo-1665553365602-b2fb8e5d1707.jpg'
+      class='w-full'
+    />
+  </div>
+</div>
+<div class='flex justify-center w-full py-2 gap-2'>
+  {
+    items.map((_, n) => (
+      <a href={`#item${n + 1}`} class='btn btn-xs'>
+        {n + 1}
+      </a>
+    ))
+  }
+</div>
