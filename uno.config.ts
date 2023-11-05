@@ -6,23 +6,25 @@ import {
   presetWebFonts,
   presetTypography,
   // presetAttributify,
-} from "unocss";
-import { presetForms } from "@julr/unocss-preset-forms";
+} from 'unocss'
+import { presetForms } from '@julr/unocss-preset-forms'
+import { presetDaisy } from 'unocss-preset-daisy'
 
 export default defineConfig({
   presets: [
     presetUno(),
     presetIcons(),
     presetWebFonts({
-      provider: "google",
+      provider: 'google',
       fonts: {
-        lato: "Lato",
+        lato: 'Lato',
       },
     }),
     // presetAttributify(),
     presetForms(),
-    presetTypography()
+    presetTypography(),
+    presetDaisy(),
   ],
 
-  safelist: ["i-mdi:facebook", "i-mdi-github"],
-});
+  safelist: ['i-mdi:facebook', 'i-mdi-github'],
+})
