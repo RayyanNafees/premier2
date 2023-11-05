@@ -18,7 +18,7 @@ import { capitalize_col } from '@/utils/transforms'
 await adminauth()
 
 if (pb.authStore?.isAdmin) {
-  const col_names = await colNames(fals)
+  const col_names = await colNames(false)
 
   await Promise.all(
     col_names.map(async (c) => {
