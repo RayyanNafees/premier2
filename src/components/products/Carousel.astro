@@ -1,0 +1,46 @@
+---
+import './carousel.css'
+import type { Collection } from './types'
+
+export interface Props {
+  total: number
+  items?: Collection[]
+}
+
+const { total = 4, items = [1,2,3,4] } = Astro.props
+---
+
+<section class='carousel' aria-label='Gallery'>
+  <ol class='carousel__viewport'>
+    {
+      items.map((item, n) => (
+        <li id={`carousel__slide${n + 1}`} tabindex='0' class='carousel__slide'>
+          <div class='carousel__snapper'>
+            <a href={`#carousel__slide${total - n}`} class='carousel__prev'>
+              Go to last slide
+            </a>
+            <a href={`#carousel__slide${n + 2}`} class='carousel__next'>
+              Go to next slide
+            </a>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+  <aside class='carousel__navigation'>
+    <ol class='carousel__navigation-list'>
+      {
+        items.map((_, n) => (
+          <li class='carousel__navigation-item'>
+            <a
+              href={`#carousel__slide${n + 1}`}
+              class='carousel__navigation-button'
+            >
+              Go to slide {n + 1}
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </aside>
+</section>

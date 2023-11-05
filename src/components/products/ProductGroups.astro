@@ -1,36 +1,6 @@
 ---
-import pb, { adminauth, filecdn, colNames } from '@/lib/pb'
-import type { RecordModel } from 'pocketbase'
-import type { Collection } from './types'
 import Collections from './Collections.astro'
-
-import { capitalize_col, colify } from '@/utils/transforms'
-if (!pb.authStore?.isAdmin) await adminauth()
-
-const col_names = await colNames(false)
-
-const cols: Collection[] = []
-
-await Promise.all(
-  col_names.map(async (c) => {
-    if (c == 'users') return
-
-    const product = await pb
-      .collection(c)
-      .getFirstListItem('')
-      .catch((e) => {
-        console.log(c, '=>', `${e.name}: ${e.data.code} | "${e.data.message}!"`)
-        return {} as RecordModel
-      })
-
-    if (product?.id && product?.images?.length)
-      cols.push({
-        name: capitalize_col(c),
-        image: filecdn(c, product.id, product.images[0]),
-        href: `products/${c}/${product.id}`,
-      })
-  })
-)
+import { $cols } from '@/lib/store';
 ---
 
-<Collections collections={cols} />
+<Collections collections={$cols.get()} />

@@ -4,17 +4,57 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Footer from '../components/Footer.astro'
 import TrustedBy from '../components/TurstedBy.astro'
 import Incentive from '../components/Incentive.astro'
-// import Featured from '../components/products/Featured.astro'
+import Carousel from '../components/products/Carousel.astro'
 import HeroProduct from '../components/products/HeroProduct.astro'
 import WideProduct from '../components/products/WideProduct.astro'
 import ProductGroups from '../components/products/ProductGroups.astro'
+
+import { $cols } from '@/lib/store'
+import pb, { adminauth, filecdn, colNames } from '@/lib/pb'
+import type { RecordModel } from 'pocketbase'
+
+import { capitalize_col } from '@/utils/transforms'
+
+await adminauth()
+
+if (pb.authStore?.isAdmin) {
+  const col_names = await colNames(fals)
+
+  await Promise.all(
+    col_names.map(async (c) => {
+      if (c == 'users') return
+
+      const product = await pb
+        .collection(c)
+        .getFirstListItem('')
+        .catch((e) => {
+          console.log(
+            c,
+            '=>',
+            `${e.name}: ${e.data.code} | "${e.data.message}!"`
+          )
+          return {} as RecordModel
+        })
+
+      if (product?.id && product?.images?.length)
+        $cols.set(
+          $cols.get().concat({
+            name: capitalize_col(c),
+            image: filecdn(c, product.id, product.images[0]),
+            href: `products/${c}/${product.id}`,
+            details: product.details,
+          })
+        )
+    })
+  )
+}
 ---
 
 <BaseLayout>
   <Navbar />
   <HeroProduct />
   <ProductGroups />
-  <!-- <Featured /> -->
+  <Carousel total={4} />
   <Incentive />
   <TrustedBy />
   <WideProduct />

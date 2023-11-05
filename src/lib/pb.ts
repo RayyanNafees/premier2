@@ -11,12 +11,21 @@ export const filecdn = (
   filename: string
 ) => `${PB_HOST}/api/files/${collection_id}/${record_id}/${filename}`
 
-export const adminauth = () => pb.admins.authWithPassword(PB_EMAIL, PB_PASS)
+export const adminauth = () =>
+  pb.admins
+    .authWithPassword(PB_EMAIL, PB_PASS)
+    .catch((e) => console.log("Can't login as Admin:", e))
 
-export const colNames = (capitalize=true) =>
+export const colNames = (capitalize = true) =>
   pb.collections
     .getFullList({
       sort: '-created',
     })
-    .then((colarr) => colarr.map((col) =>capitalize? capitalize_col(col.name):col.name))
+    .then((colarr) =>
+      colarr.map((col) => (capitalize ? capitalize_col(col.name) : col.name))
+    )
+    .catch((e) => {
+      console.log("Couldn't load Collection Names due to", e)
+      return []
+    })
 export default pb
