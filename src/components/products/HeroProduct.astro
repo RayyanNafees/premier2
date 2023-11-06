@@ -27,15 +27,15 @@ const {
 } = Astro.props
 ---
 
-<div class='relative bg-gray-900 w-full'>
+<div class='relative bg-gray-900 w-full '>
   <!-- Decorative image and overlay -->
   <div aria-hidden='true' class='absolute inset-0 overflow-hidden'>
     <Image
       src={image}
       alt={title}
-      class='aspect-auto h-80 object-center object-cover'
+      class='aspect-auto object-center object-cover w-auto h-auto'
       width='100'
-      height='20'
+      height='100'
     />
   </div>
   <div aria-hidden='true' class='absolute inset-0 bg-gray-900 opacity-50'></div>
@@ -46,9 +46,7 @@ const {
     <h1 class='text-4xl font-extrabold tracking-tight text-white lg:text-6xl'>
       {title}
     </h1>
-    <p class='mt-4 text-xl text-white'>
-      {subtitle}
-    </p>
+    <p class='mt-4 text-xl text-white max-w-[50%] text-left list-inherit' set:html={subtitle} />
     <a
       href={a_href}
       class='mt-8 inline-block bg-white border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 capitalize'
