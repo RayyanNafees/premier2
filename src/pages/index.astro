@@ -9,11 +9,14 @@ import HeroProduct from '../components/products/HeroProduct.astro'
 import WideProduct from '../components/products/WideProduct.astro'
 import ProductGroups from '../components/products/ProductGroups.astro'
 
-import { $cols } from '@/lib/store'
+import { $col_ids, $cols } from '@/lib/store'
 import pb, { adminauth, filecdn, colNames } from '@/lib/pb'
 import type { RecordModel } from 'pocketbase'
 
 import { capitalize_col } from '@/utils/transforms'
+import ProductLayout from '@/layouts/ProductLayout.astro'
+
+$cols.set([])
 
 await adminauth()
 if (pb.authStore?.isAdmin) {
@@ -35,15 +38,17 @@ if (pb.authStore?.isAdmin) {
           return {} as RecordModel
         })
 
-      if (product?.id && product?.images?.length)
+      const name = capitalize_col(c)
+      if (product?.id && product?.images?.length && !$col_ids.get().has(name)) {
         $cols.set(
           $cols.get().concat({
-            name: capitalize_col(c),
+            name,
             image: filecdn(c, product.id, product.images[0]),
-            href: `products/${c}/${product.id}`,
+            href: `/products/${c}`,
             details: product.details,
           })
         )
+      }
     })
   )
 }
