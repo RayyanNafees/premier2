@@ -2,12 +2,10 @@
 import { Image } from 'astro:assets'
 import logo from '@/assets/logo.jpg'
 import {$cols} from '@/lib/store'
-import type {Collection} from '@/components/products/types'
 
-const furniture_href = $cols.get().find(i=> i.name.toLowerCase().startsWith('furnit'))?.href
-const machine_href = $cols.get().find(i=> i.name.toLowerCase().includes('testing'))?.href
+const furniture_href = $cols.get().find(i=> i.name.toLowerCase().startsWith('furniture'))?.href
+const machine_href = $cols.get().find(i=> i.name.toLowerCase().includes('machine'))?.href
 
-console.log($cols.get().find(i=> i.name.toLowerCase().includes('testing')), machine_href)
 ---
 
 <nav class='bg-white shadow sticky'>
