@@ -1,40 +1,109 @@
----
+<!-- ---
+
+import '@splidejs/splide/css';
+
 import type { Collection } from '@/components/products/types'
 import HeroProduct from './HeroProduct.astro'
+import { Image } from 'astro:assets'
+import { map } from 'nanostores'
+
+
 export interface Props {
   items: Array<Collection>
 }
 
+import Splide from '@/utils/splide.esm.js'
+
+
 const { items = [] } = Astro.props
 ---
 
-<div class='carousel h-120 mx-10 rounded-xl my-5 container'>
-  {
-    items.map((item, n) => (
-      <div id={`item${n + 1}`} class='carousel-item container'>
-        <HeroProduct
-          title={item.name}
-          subtitle={item.details}
-          a_href={item.href}
-          image={item.image}
-        />
-      </div>
-    ))
-  } 
-  <!-- <div id='item2' class='carousel-item w-full'>
-    <img
-      src='/images/stock/photo-1609621838510-5ad474b7d25d.jpg'
-      class='w-full'
-    /> 
-  </div> -->
-</div>
+<section id='main-carousel' class='splide' aria-label='My Awesome Gallery'>
+  <div class='splide__track'>
+    <ul class='splide__list'>
+      {
+        items.map((item) => (
+          <li class='splide__slide'>
+            <Image src={item.image} alt={item.name} height='100' width='100' />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
 
-<div class='flex justify-center w-full py-2 gap-2'>
+<ul id='thumbnails' class='thumbnails'>
   {
-    items.map((_, n) => (
-      <a href={`#item${n + 1}`} class='btn btn-xs'>
-        {n + 1}
-      </a>
+    items.map((item) => (
+      <li class='thumbnail'>
+        <Image src={item.image} alt={item.name} height='100' width='100' />
+      </li>
     ))
   }
-</div>
+</ul>
+
+<style>
+  .thumbnails {
+  display: flex;
+  margin: 1rem auto 0;
+  padding: 0;
+  justify-content: center;
+}
+
+
+.thumbnail {
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  list-style: none;
+  margin: 0 0.2rem;
+  cursor: pointer;
+}
+
+
+.thumbnail img {
+  width: 100%;
+  height: auto;
+}
+</style>
+
+<script>
+var splide = new Splide( '#main-carousel', {
+  pagination: false,
+} );
+
+
+var thumbnails = document.getElementsByClassName( 'thumbnail' ) as HTMLCollectionOf<HTMLElement>;
+var current: HTMLElement;
+
+
+for ( var i = 0; i < thumbnails.length; i++ ) {
+  initThumbnail( thumbnails[ i ], i );
+}
+
+
+function initThumbnail( thumbnail: HTMLElement, index:number ) {
+  thumbnail.addEventListener( 'click', function () {
+    splide.go( index );
+  } );
+}
+
+
+splide.on( 'mounted move', function () {
+  var thumbnail = thumbnails[ splide.index ];
+
+
+  if ( thumbnail ) {
+    if ( current ) {
+      current.classList.remove( 'is-active' );
+    }
+
+
+    thumbnail.classList.add( 'is-active' );
+    current = thumbnail;
+  }
+} );
+
+
+splide.mount();
+</script> -->
