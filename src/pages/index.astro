@@ -5,7 +5,6 @@ import Footer from '../components/Footer.astro'
 import TrustedBy from '../components/TurstedBy.astro'
 import Incentive from '../components/Incentive.astro'
 import Carousel from '../components/products/Carousel.astro'
-import HeroProduct from '../components/products/HeroProduct.astro'
 import WideProduct from '../components/products/WideProduct.astro'
 import ProductGroups from '../components/products/ProductGroups.astro'
 
@@ -14,9 +13,6 @@ import pb, { adminauth, filecdn, colNames } from '@/lib/pb'
 import type { RecordModel } from 'pocketbase'
 
 import { capitalize_col } from '@/utils/transforms'
-import ProductLayout from '@/layouts/ProductLayout.astro'
-
-$cols.set([])
 
 await adminauth()
 if (pb.authStore?.isAdmin) {
