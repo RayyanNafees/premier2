@@ -8,7 +8,7 @@ import {
   // presetAttributify,
 } from 'unocss'
 import { presetForms } from '@julr/unocss-preset-forms'
-import { presetDaisy } from 'unocss-preset-daisy'
+import { presetFlowbite } from '@julr/unocss-preset-flowbite'
 
 export default defineConfig({
   presets: [
@@ -23,7 +23,7 @@ export default defineConfig({
     // presetAttributify(),
     presetForms(),
     presetTypography(),
-    presetDaisy(),
+    presetFlowbite(),
   ],
 
   safelist: ['i-mdi:facebook', 'i-mdi-github'],

@@ -1,53 +1,60 @@
 ---
-import Navbar from '../components/Navbar.astro'
-import BaseLayout from '../layouts/BaseLayout.astro'
-import Footer from '../components/Footer.astro'
-import TrustedBy from '../components/TurstedBy.astro'
-import Incentive from '../components/Incentive.astro'
-import Carousel from '../components/products/Carousel.astro'
-import WideProduct from '../components/products/WideProduct.astro'
-import ProductGroups from '../components/products/ProductGroups.astro'
+import Navbar from "../components/Navbar.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import TrustedBy from "../components/TurstedBy.astro";
+import Incentive from "../components/Incentive.astro";
+import Carousel from "../components/products/Carousel.astro";
+import WideProduct from "../components/products/WideProduct.astro";
+import ProductGroups from "../components/products/ProductGroups.astro";
 
-import { $col_ids, $cols } from '@/lib/store'
-import pb, { adminauth, filecdn, colNames } from '@/lib/pb'
-import type { RecordModel } from 'pocketbase'
+import { $col_ids, $cols } from "@/lib/store";
+import pb, { adminauth, filecdn, colNames } from "@/lib/pb";
+import type { RecordModel } from "pocketbase";
 
-import { capitalize_col } from '@/utils/transforms'
+import { capitalize_col } from "@/utils/transforms";
 
-await adminauth()
-if (pb.authStore?.isAdmin) {
-  const col_names = await colNames(false)
+adminauth()
+  .then(async () => {
+    if (pb.authStore?.isAdmin) {
+      const col_names = await colNames(false);
 
-  await Promise.all(
-    col_names.map(async (c) => {
-      if (c == 'users') return
+      await Promise.all(
+        col_names.map(async (c) => {
+          if (c == "users") return;
 
-      const product = await pb
-        .collection(c)
-        .getFirstListItem('')
-        .catch((e) => {
-          console.log(
-            c,
-            '=>',
-            `${e.name}: ${e.data.code} | "${e.data.message}!"`
-          )
-          return {} as RecordModel
-        })
+          const product = await pb
+            .collection(c)
+            .getFirstListItem("")
+            .catch((e) => {
+              console.log(
+                c,
+                "=>",
+                `${e.name}: ${e.data.code} | "${e.data.message}!"`,
+              );
+              return {} as RecordModel;
+            });
 
-      const name = capitalize_col(c)
-      if (product?.id && product?.images?.length && !$col_ids.get().has(name)) {
-        $cols.set(
-          $cols.get().concat({
-            name,
-            image: filecdn(c, product.id, product.images[0]),
-            href: `/products/${c}`,
-            details: product.details,
-          })
-        )
-      }
-    })
-  )
-}
+          const name = capitalize_col(c);
+          if (
+            product?.id &&
+            product?.images?.length &&
+            !$col_ids.get().has(name)
+          ) {
+            $cols.set(
+              $cols.get().concat({
+                name,
+                image: filecdn(c, product.id, product.images[0]),
+                href: `/products/${c}`,
+                details: product.details,
+              }),
+            );
+          }
+        }),
+      );
+    }
+  })
+  .catch((e) => console.log("Couldn't Authorize as Admin!", e));
 ---
 
 <BaseLayout>
