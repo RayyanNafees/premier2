@@ -1,42 +1,45 @@
 ---
-import range from '../../utils/range'
+import range from "../../utils/range";
 export interface Props {
-  currentPage: number
-  totalPages: number
-  perPage: number
+  currentPage: number;
+  totalPages: number;
+  perPage: number;
 }
 // const pages = ['1', '2', '3', , '...', '8', '9', '10']
 
-const { totalPages, currentPage, perPage } = Astro.props
-const page_range = range(totalPages)
+const { totalPages = 12, currentPage = 0, perPage = 10 } = Astro.props;
+const page_range = range(totalPages);
 
-const [first, second, third, ...etc] = page_range
+const [first, second, third, ...etc] = page_range;
 
 const pages =
   totalPages > 8
-    ? [first, second, third, '...', etc.at(-3), etc.at(-2), etc.at(-1)]
-    : page_range
+    ? [first, second, third, "...", etc.at(-3), etc.at(-2), etc.at(-1)]
+    : page_range;
 ---
 
-<div class='max-w-screen-xl mx-auto mt-12 px-4 text-gray-600 md:px-8'>
-  <div class='hidden justify-between text-sm md:flex'>
-    <div>SHOWING 1-10 OF 120</div>
-    <div class='flex items-center gap-12' aria-label='Pagination'>
-      <a href='javascript:void(0)' class='hover:text-indigo-600'> Previous</a>
-      <ul class='flex items-center gap-1'>
+<div class="max-w-screen-xl mx-auto mt-12 px-4 text-gray-600 md:px-8">
+  <div class="hidden justify-between text-sm md:flex">
+    <div>
+      SHOWING {`${currentPage * perPage + 1} - ${(currentPage + 1) * perPage}`}
+      OF {totalPages * perPage}
+    </div>
+    <div class="flex items-center gap-12" aria-label="Pagination">
+      <a href="javascript:void(0)" class="hover:text-indigo-600"> Previous</a>
+      <ul class="flex items-center gap-1">
         {
           pages.map((item, idx) => (
             <li>
-              {item == '...' ? (
+              {item == "..." ? (
                 <div>{item}</div>
               ) : (
                 <a
-                  href='javascript:void(0)'
-                  aria-current={currentPage == item ? 'page' : false}
+                  href="javascript:void(0)"
+                  aria-current={currentPage == item ? "page" : false}
                   class:list={[
-                    'px-3 py-2 rounded-lg duration-150 hover:text-white hover:bg-indigo-600',
+                    "px-3 py-2 rounded-lg duration-150 hover:text-white hover:bg-indigo-600",
                     {
-                      'bg-indigo-600 text-white font-medium':
+                      "bg-indigo-600 text-white font-medium":
                         currentPage == item,
                     },
                   ]}
@@ -48,22 +51,25 @@ const pages =
           ))
         }
       </ul>
-      <a href='javascript:void(0)' class='hover:text-indigo-600'> Next</a>
+      <a href="javascript:void(0)" class="hover:text-indigo-600"> Next</a>
     </div>
   </div>
   {/* On mobile version */}
   <div
-    class='flex items-center justify-between text-sm text-gray-600 font-medium md:hidden'
+    class="flex items-center justify-between text-sm text-gray-600 font-medium md:hidden"
   >
     <a
-      href='javascript:void(0)'
-      class='px-4 py-2 border rounded-lg duration-150 hover:bg-gray-50'
+      href="javascript:void(0)"
+      class="px-4 py-2 border rounded-lg duration-150 hover:bg-gray-50"
       >Previous</a
     >
-    <div class='font-medium'>SHOWING 1-10 OF 120</div>
+    <div class="font-medium">
+      SHOWING {`${currentPage * perPage + 1} - ${(currentPage + 1) * perPage}`}
+      OF {totalPages * perPage}
+    </div>
     <a
-      href='javascript:void(0)'
-      class='px-4 py-2 border rounded-lg duration-150 hover:bg-gray-50'>Next</a
+      href="javascript:void(0)"
+      class="px-4 py-2 border rounded-lg duration-150 hover:bg-gray-50">Next</a
     >
   </div>
 </div>
