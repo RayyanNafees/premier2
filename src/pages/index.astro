@@ -28,9 +28,10 @@ adminauth()
             .getFirstListItem("")
             .catch((e) => {
               console.log(
+                `[${e.data.code}]`,
                 c,
                 "=>",
-                `${e.name}: ${e.data.code} | "${e.data.message}!"`,
+                `${e.data.message} <${e.name}>`,
               );
               return {} as RecordModel;
             });

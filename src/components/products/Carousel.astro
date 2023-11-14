@@ -8,6 +8,8 @@ export interface Props {
 const { items = [] } = Astro.props;
 ---
 
+{
+  /*
 <div id="default-carousel" class="relative w-full" data-carousel="slide">
   <!-- Carousel wrapper -->
   <div
@@ -153,8 +155,9 @@ const { items = [] } = Astro.props;
       <span class="sr-only">Next</span>
     </span>
   </button>
-</div>
-<!-- 
+</div>*/
+}
+
 <div class="carousel h-120 mx-10 rounded-xl my-5 container">
   {
     items.map((item, n) => (
@@ -168,12 +171,12 @@ const { items = [] } = Astro.props;
       </div>
     ))
   }
-  -- <div id='item2' class='carousel-item w-full'>
+  <!-- <div id="item2" class="carousel-item w-full">
     <img
-      src='/images/stock/photo-1609621838510-5ad474b7d25d.jpg'
-      class='w-full'
-    /> 
-  </div> --
+      src="/images/stock/photo-1609621838510-5ad474b7d25d.jpg"
+      class="w-full"
+    />
+  </div> -->
 </div>
 
 <div class="flex justify-center w-full py-2 gap-2">
@@ -184,4 +187,4 @@ const { items = [] } = Astro.props;
       </a>
     ))
   }
-</div> -->
+</div>
