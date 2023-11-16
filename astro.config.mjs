@@ -16,6 +16,6 @@ export default defineConfig({
     }),
     prefetch(),
     sitemap(),
-    serviceWorker()
+    // serviceWorker()
   ],
 });

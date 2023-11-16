@@ -13,18 +13,23 @@
     "@astrojs/netlify": "^3.0.4",
     "@astrojs/prefetch": "^0.4.1",
     "@astrojs/sitemap": "^3.0.3",
-    "astro": "^3.5.3",
+    "@splidejs/splide": "^4.1.4",
+    "astro": "^3.5.4",
     "astrojs-service-worker": "^1.1.0",
     "colorthief": "^2.4.0",
-    "daisyui": "^4.0.3",
+    "get-pixels": "^3.3.3",
     "nanostores": "^0.9.5",
     "pocketbase": "^0.19.0",
-    "unocss-preset-daisy": "^7.0.0"
+    "quantize": "^1.0.2"
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.1.55",
-    "@julr/unocss-preset-forms": "^0.0.6",
-    "@unocss/reset": "^0.57.3",
-    "unocss": "^0.57.3"
+    "@julr/unocss-preset-forms": "^0.1.0",
+    "@types/get-pixels": "^3.3.4",
+    "@types/ndarray": "^1.0.14",
+    "@types/quantize": "^1.0.2",
+    "@unocss/reset": "^0.57.4",
+    "ndarray": "^1.0.19",
+    "unocss": "^0.57.4"
   }
 }
