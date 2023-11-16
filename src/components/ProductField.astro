@@ -1,0 +1,67 @@
+---
+import { Image } from 'astro:assets'
+
+export interface Props {
+  field: string
+  href?: string
+  active?: boolean
+  item_count?: number
+  icon_url?: string
+}
+
+const {
+  field,
+  active = false,
+  item_count = '',
+  icon_url = '',
+  href = '#',
+} = Astro.props
+---
+
+<!-- Current: "bg-gray-100 text-gray-900", Default: "text-gray-600 hover:bg-gray-50 hover:text-gray-900" -->
+<a
+  {href}
+  class:list={[
+    'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
+    active
+      ? 'bg-gray-100 text-gray-900'
+      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+  ]}
+>
+  <!--
+      Heroicon name: outline/home
+
+      Current: "text-gray-500", Default: "text-gray-400 group-hover:text-gray-500"
+    -->
+  {
+    icon_url && (
+      <Image
+        src={icon_url}
+        alt={field}
+        height='10'
+        width='10'
+        class:list={[
+          'mr-3 flex-shrink-0 h-6 w-6',
+          active ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+        ]}
+      />
+    )
+  }
+
+  <span class='flex-1'>{field}</span>
+
+  <!-- Current: "bg-white", Default: "bg-gray-100 group-hover:bg-gray-200" -->
+
+  {
+    item_count !== '' && (
+      <span
+        class:list={[
+          'ml-3 inline-block py-0.5 px-3 text-xs font-medium rounded-full',
+          active ? 'bg-white' : 'bg-gray-100 group-hover:bg-gray-200',
+        ]}
+      >
+        {item_count || 0}
+      </span>
+    )
+  }
+</a>

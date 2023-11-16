@@ -8,7 +8,7 @@ import {
   // presetAttributify,
 } from 'unocss'
 import { presetForms } from '@julr/unocss-preset-forms'
-
+import { presetExtra } from 'unocss-preset-extra'
 export default defineConfig({
   presets: [
     presetUno(),
@@ -22,6 +22,7 @@ export default defineConfig({
     // presetAttributify(),
     presetForms(),
     presetTypography(),
+    presetExtra(),
   ],
 
   safelist: ['i-mdi:facebook', 'i-mdi-github'],

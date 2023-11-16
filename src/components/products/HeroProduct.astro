@@ -1,47 +1,51 @@
 ---
-import { Image } from "astro:assets";
+import { Image } from 'astro:assets'
 
 export interface Props {
-  title: string;
-  subtitle: string;
-  a_text?: string;
-  a_href: string;
-  image: string;
+  title: string
+  subtitle: string
+  a_text?: string
+  a_href: string
+  image: string
 }
-const { title, subtitle, image, a_text = "Buy Now", a_href } = Astro.props;
+const { title, image, a_text = 'Buy Now', a_href } = Astro.props
 
-const tcls = title.split(" ").join("-")
+const subtitle = Astro.props.subtitle.replace(/<ul>/g, '<ul class="list-disc">')
 
-const slide_class = 'slide-'+tcls
-const image_class = 'image-'+tcls
+const tcls = title.split(' ').join('-')
+
+const slide_class = 'slide-' + tcls
+const image_class = 'image-' + tcls
 ---
 
 <div class:list={['relative rounded-xl w-full', slide_class]}>
   <!-- Decorative image and overlay -->
-  <div aria-hidden="true" class="absolute inset-0 overflow-hidden ml-10">
+  <div aria-hidden='true' class='absolute inset-0 overflow-hidden ml-5'>
     <Image
       src={image}
       alt={title}
-      class:list={['aspect-auto object-center object-cover w-auto h-full', image_class]}
-      width="100"
-      height="50"
+      class:list={[
+        'aspect-auto object-center object-cover w-auto h-full',
+        image_class,
+      ]}
+      width='100'
+      height='50'
     />
   </div>
-  <div aria-hidden="true" class="absolute inset-0 bg-gray-900 opacity-50"></div>
+  <div aria-hidden='true' class='absolute inset-0 bg-gray-900 opacity-50'></div>
 
   <div
-    class="relative max-w-7xl mx-auto px-6 flex flex-col items-end text-end justify-end sm:py-15 lg:px-0"
+    class='relative max-w-7xl mx-auto px-6 flex flex-col items-end text-end justify-end sm:py-15 lg:px-0 animated animated-fade-in-right'
   >
-    <h1 class="text-4xl font-extrabold tracking-tight text-white lg:text-6xl">
+    <h1 class='text-4xl font-extrabold tracking-tight text-white lg:text-6xl'>
       {title}
     </h1>
-    <p
-      class="mt-4 text-xl text-white max-w-[50%] text-left list-inherit"
-      set:html={subtitle}
-    />
+    <div class='flex items-start justify-start w-[50%] text-left'>
+      <p class='mt-4 text-xl text-white' set:html={subtitle} />
+    </div>
     <a
       href={a_href}
-      class="mt-8 inline-block bg-white border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 capitalize"
+      class='mt-8 inline-block bg-white border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 capitalize'
     >
       {a_text}
     </a>
@@ -50,34 +54,36 @@ const image_class = 'image-'+tcls
   <script define:vars={{ image, title, slide_class, image_class }}>
     if (image && title)
       Promise.all([
-        fetch("/api/bgcolor?image=" + image)
+        fetch('/api/bgcolor?image=' + image)
           .then((r) => r.json())
           .catch((e) => console.log("Couldn't fetch color", e)),
 
-        fetch("/api/palette?image=" + image)
+        fetch('/api/palette?image=' + image)
           .then((r) => r.json())
           .catch((e) => console.log("Couldn't fetch palette", e)),
       ])
         .then(([color, palette]) => {
-          localStorage[title] = JSON.stringify(palette);
+          localStorage[title] = JSON.stringify(palette)
 
-          const [r, g, b] = color;
-          const clr = `rgb(${r}, ${g}, ${b})`;
+          const [r, g, b] = color
+          const clr = `rgb(${r}, ${g}, ${b})`
 
-          const slide = document.querySelector('.'+slide_class);
-          const img = document.querySelector('.'+image_class)
+          const slide = document.querySelector('.' + slide_class)
+          const img = document.querySelector('.' + image_class)
 
           if (slide && slide.style) {
-            slide.style.background = clr;
-            console.log(title, "(slide background updated) =>", clr);
+            slide.style.background = clr
+            console.log(title, '(slide background updated) =>', clr)
           }
 
           if (img && img.style) {
-            img.style.background = clr;
-            img.style.boxShadow = `inset 6px ${clr}, inset 6px ${clr}`;
-            console.log(title, "(image shadow updated) =>", clr);
+            img.style.background = clr
+            slide.classList.add('rounded-xl')
+
+            // img.style.boxShadow = `inset 6px ${clr}, inset 6px ${clr}`
+            // console.log(title, '(image shadow updated) =>', clr)
           }
         })
-        .catch((e) => console.log("Error:", e));
+        .catch((e) => console.log('Error:', e))
   </script>
 </div>

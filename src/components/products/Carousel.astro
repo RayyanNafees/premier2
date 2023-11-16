@@ -1,22 +1,22 @@
 ---
-import "@splidejs/splide/css/skyblue";
+import '@splidejs/splide/css/skyblue'
 
-import type { Collection } from "./types";
-import HeroProduct from "./HeroProduct.astro";
+import type { Collection } from './types'
+import HeroProduct from './HeroProduct.astro'
 
 export interface Props {
-  items: Collection[];
+  items: Collection[]
 }
 
-const { items } = Astro.props;
+const { items } = Astro.props
 ---
 
-<section class="splide">
-  <div class="splide__track">
-    <ul class="splide__list">
+<section class='splide mt-5'>
+  <div class='splide__track'>
+    <ul class='splide__list'>
       {
         items.map((item) => (
-          <li class="splide__slide">
+          <li class='splide__slide'>
             <HeroProduct
               title={item.name}
               subtitle={item.details}
@@ -31,10 +31,10 @@ const { items } = Astro.props;
 </section>
 
 <script>
-  import Splide from "@splidejs/splide";
+  import Splide from '@splidejs/splide'
 
-  var secondarySlider = new Splide(".splide", {
-    type: "loop",
+  var secondarySlider = new Splide('.splide', {
+    type: 'loop',
     pagination: true,
     arrows: true,
     cover: true,
@@ -42,8 +42,8 @@ const { items } = Astro.props;
     pauseOnHover: true,
     rewind: true,
     speed: 400,
-    padding: "5%",
-    lazyLoad: "nearby",
-    gap:'5rem'
-  }).mount();
+    padding: '5%',
+    lazyLoad: 'nearby',
+    gap: '5rem',
+  }).mount()
 </script>
