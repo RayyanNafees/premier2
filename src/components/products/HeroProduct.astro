@@ -10,12 +10,15 @@ export interface Props {
 }
 const { title, image, a_text = 'Buy Now', a_href } = Astro.props
 
-const subtitle = Astro.props.subtitle.replace(/<ul>/g, '<ul class="list-disc">')
+const subtitle = Astro.props.subtitle
+  .replace(/<ul>/g, '<ul class="list-disc  w-content">')
+  .replace(/<p>/g, '<p class="w-full max-w-content">')
 
 const tcls = title.split(' ').join('-')
 
 const slide_class = 'slide-' + tcls
 const image_class = 'image-' + tcls
+const btn_class = 'btn-' + tcls
 ---
 
 <div class:list={['relative rounded-xl w-full', slide_class]}>
@@ -40,18 +43,24 @@ const image_class = 'image-' + tcls
     <h1 class='text-4xl font-extrabold tracking-tight text-white lg:text-6xl'>
       {title}
     </h1>
-    <div class='flex items-start justify-start w-content text-left'>
+    <div class='flex items-start justify-start text-left max-w-4xl'>
       <p class='mt-4 text-xl text-white' set:html={subtitle} />
     </div>
-    <a
-      href={a_href}
-      class='mt-8 inline-block bg-white border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 capitalize'
-    >
-      {a_text}
-    </a>
+    <div class='w-[50%]'>
+      <a
+        href={a_href}
+        class:list={[
+          'transition-800 mt-8 inline-block bg-white border mr-[25%] border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 capitalize',
+          btn_class,
+        ]}
+      >
+        {a_text}
+      </a>
+    </div>
   </div>
 
-  <script define:vars={{ image, title, slide_class, image_class }}>
+  <script define:vars={{ image, title, slide_class, image_class, btn_class }}>
+    // TODO: Use global css vars in tailwind for efficient color change
     if (image && title)
       Promise.all([
         fetch('/api/bgcolor?image=' + image)
@@ -63,17 +72,19 @@ const image_class = 'image-' + tcls
           .catch((e) => console.log("Couldn't fetch palette", e)),
       ])
         .then(([color, palette]) => {
-          localStorage[title] = JSON.stringify(palette)
+          // localStorage[title] = JSON.stringify(palette)
+
+          const choice = (arr) => arr[Math.floor(Math.random() * arr.length)]
 
           const [r, g, b] = color
           const clr = `rgb(${r}, ${g}, ${b})`
 
           const slide = document.querySelector('.' + slide_class)
           const img = document.querySelector('.' + image_class)
+          const btn = document.querySelector('.' + btn_class)
 
           if (slide && slide.style) {
             slide.style.background = clr
-            console.log(title, '(slide background updated) =>', clr)
           }
 
           if (img && img.style) {
@@ -81,7 +92,14 @@ const image_class = 'image-' + tcls
             slide.classList.add('rounded-xl')
 
             // img.style.boxShadow = `inset 6px ${clr}, inset 6px ${clr}`
-            // console.log(title, '(image shadow updated) =>', clr)
+          }
+
+          if (btn && btn.style) {
+            const btnIntrvl = setInterval(() => {
+              const [r, g, b] = choice(palette)
+              console.log({r,g,b})
+              btn.style.background = `rgb(${r}, ${g}, ${b})`
+            }, 500)
           }
         })
         .catch((e) => console.log('Error:', e))
