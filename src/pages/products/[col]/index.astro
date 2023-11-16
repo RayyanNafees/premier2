@@ -40,10 +40,10 @@ if (!pb.authStore?.isAdmin) {
 
 (await colNames()).map((c) => fields.push(c));
 
-const need_pagination = totalItems > perPage;
+const need_pagination = totalItems > perPage; // TODO: Implement Pagination
 ---
 
 <ProductLayout {fields} title={capitalize_col(col)}>
   <ProductListing {products} />
-  {need_pagination && <Pagination {totalPages} currentPage={page} {perPage} />}
+  <!-- {need_pagination && <Pagination {totalPages} currentPage={page} {perPage} />} -->
 </ProductLayout>
