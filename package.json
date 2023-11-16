@@ -30,6 +30,7 @@
     "@types/quantize": "^1.0.2",
     "@unocss/reset": "^0.57.4",
     "ndarray": "^1.0.19",
-    "unocss": "^0.57.4"
+    "unocss": "^0.57.4",
+    "unocss-preset-extra": "^0.5.3"
   }
 }

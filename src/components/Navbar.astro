@@ -1,11 +1,17 @@
 ---
 import { Image } from 'astro:assets'
 import logo from '@/assets/logo.jpg'
-import {$cols} from '@/lib/store'
 
-const furniture_href = $cols.get().find(i=> i.name.toLowerCase().startsWith('furniture'))?.href
-const machine_href = $cols.get().find(i=> i.name.toLowerCase().includes('machine'))?.href
+const nav_options = {
+  Shop: '/products',
+  Furniture: '/products/FURNITURE',
+  Machines: '/products/PAPER_TESTING_MACHINES',
+  'About Us': '/about',
+}
 
+const current_url = new URL(Astro.url).pathname
+
+const isActive = (href: string) => href === current_url
 ---
 
 <nav class='bg-white shadow sticky'>
@@ -36,31 +42,22 @@ const machine_href = $cols.get().find(i=> i.name.toLowerCase().includes('machine
         </a>
 
         <div class='hidden lg:ml-6 lg:flex lg:space-x-8'>
-          <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-          <a
-            href='products'
-            class='border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
-          >
-            Shop
-          </a>
-          <a
-            href={furniture_href}
-            class='border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
-          >
-            Furniture
-          </a>
-          <a
-            href={machine_href}
-            class='border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
-          >
-            Machines
-          </a>
-          <a
-            href='about'
-            class='border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
-          >
-            About Us
-          </a>
+          <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"  -->
+          {
+            Object.entries(nav_options).map(([title, href]) => (
+              <a
+                {href}
+                class:list={[
+                  'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium',
+                  isActive(href)
+                    ? 'border-indigo-500 text-gray-900'
+                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                ]}
+              >
+                {title}
+              </a>
+            ))
+          }
         </div>
       </div>
       <div
@@ -167,27 +164,21 @@ const machine_href = $cols.get().find(i=> i.name.toLowerCase().includes('machine
   <!-- Mobile menu, show/hide based on menu state. -->
   <div class='lg:hidden' id='mobile-menu'>
     <div class='pt-2 pb-3 space-y-1'>
-      <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" -->
-      <a
-        href={`products`}
-        class='bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
-        >Shop</a
-      >
-      <a
-        href={furniture_href}
-        class='border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
-        >Furnitures</a
-      >
-      <a
-        href={machine_href}
-        class='border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
-        >Machines</a
-      >
-      <a
-        href='about'
-        class='border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
-        >About Us</a
-      >
+      {
+        Object.entries(nav_options).map(([title, href]) => (
+          <a
+            {href}
+            class:list={[
+              'block pl-3 pr-4 py-2 border-l-4 text-base font-medium',
+              isActive(href)
+                ? 'bg-indigo-50 border-indigo-500 text-indigo-700'
+                : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800',
+            ]}
+          >
+            {title}
+          </a>
+        ))
+      }
     </div>
   </div>
 </nav>

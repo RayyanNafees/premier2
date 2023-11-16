@@ -1,12 +1,14 @@
 ---
 import Layout from './Layout.astro'
-import {colify} from '@/utils/transforms'
+import { colify } from '@/utils/transforms'
+import ProductField from '../components/ProductField.astro'
 export interface Props {
-  fields : Array<string>
-    title:string
+  fields: Array<string>
+  title: string
 }
-const {fields=[], title} = Astro.props
+const { fields = [], title } = Astro.props
 
+console.log('Active field' ,fields.find(i=>i===title))
 ---
 
 <Layout>
@@ -76,24 +78,22 @@ const {fields=[], title} = Astro.props
           <!-- Filters -->
           <form class='mt-4 border-t border-gray-200'>
             <h3 class='sr-only'>Categories</h3>
-            <ul role='list' class='font-medium text-gray-900 px-2 py-3'>
+            <nav class='flex-1 px-2 bg-white space-y-1' aria-label='Sidebar'>
               {
-                fields.filter(i=> i!='Users').map((field: string) => (
-                  <li>
-                    <a href='#' class='block px-2 py-3'>
-                      {field}
-                    </a>
-                  </li>
-                ))
+                fields
+                  .filter((i) => i != 'Users')
+                  .map((field: string) => (
+                    <ProductField {field} active={field === title} href={colify(field)}/>
+                  ))
               }
-            </ul>
+            </nav>
           </form>
         </div>
       </div>
 
       <main class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div
-          class='relative z-10 flex items-baseline justify-between pt-14 pb-6 border-b border-gray-200'
+          class='relative z-10 flex items-baseline justify-between pt-5 pb-6 border-b border-gray-200'
         >
           <h1 class='text-4xl font-extrabold tracking-tight text-gray-900'>
             {title}
@@ -249,18 +249,13 @@ const {fields=[], title} = Astro.props
             <!-- Filters -->
             <form class='hidden lg:block'>
               <h3 class='sr-only'>Categories</h3>
-              <ul
-                role='list'
-                class='text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200'
-              >
+              <nav class='flex-1 px-2 bg-white space-y-1' aria-label='Sidebar'>
                 {
-                  fields.filter(i=>i!='Users').map((i) => (
-                    <li>
-                      <a href={colify(i)}> {i}</a>
-                    </li>
-                  ))
+                  fields
+                    .filter((i) => i != 'Users')
+                    .map((field) => <ProductField href={colify(field)} field={field} active={field===title}/>)
                 }
-              </ul>
+              </nav>
             </form>
 
             <!-- Product grid -->

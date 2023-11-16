@@ -1,0 +1,76 @@
+---
+import { $cols } from '@/lib/store'
+import type { Collection } from './products/types'
+import { Image } from 'astro:assets'
+
+const collections = []
+const cols = $cols.get().slice(0, 12)
+
+for (let i = 0, currentArray; i < cols.length; i++) {
+  if (!(i % 4)) collections.push([])
+
+  const { name, href, image } = cols[i]
+
+  currentArray = collections.at(-1) as Array<Collection>
+
+  if (Array.isArray(currentArray))
+    currentArray.push({
+      name,
+      href,
+      image,
+    })
+}
+---
+
+<link rel='stylesheet' type='text/css' href='/css/style.css' />
+<script is:inline src='/js/modernizr.js'></script>
+<h2
+  class='text-3xl font-extrabold tracking-tight text-gray-900 py-10 pt-20 w-full text-center'
+>
+  Featured Products
+</h2>
+<div class='main pt-24 my-auto sm:py-10'>
+  <div id='mi-slider' class='mi-slider'>
+    {
+      collections.map((colArray) => (
+        <ul>
+          {colArray.map((col: Collection) => (
+            <li>
+              <a href={col.href}>
+                <Image
+                  src={col.image}
+                  alt={col.name}
+                  class='w-60 h-80 rounded-xl object-center object-cover transition hover:w-full'
+                  height='100'
+                  width='60'
+                />
+                <h4>{col.name}</h4>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ))
+    }
+    <nav>
+      <a href='#'>Furnitures</a>
+      <a href='#'>Machines</a>
+      <a href='#'>Decor</a>
+      <!-- Add one more provided there are 16 -->
+    </nav>
+  </div>
+</div>
+
+<!-- /container -->
+
+<script
+  is:inline
+  src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'
+></script>
+<script is:inline src='/js/jquery.catslider.js'></script>
+<script>
+  //@ts-ignore
+  const { $ } = window
+  $(function () {
+    $('#mi-slider').catslider()
+  })
+</script>
