@@ -7,7 +7,7 @@ import Incentive from "../components/Incentive.astro";
 import Carousel from "../components/products/Carousel.astro";
 import WideProduct from "../components/products/WideProduct.astro";
 import ProductGroups from "../components/products/ProductGroups.astro";
-
+import Featured from '../components/featured/index.astro'
 import { $col_ids, $cols } from "@/lib/store";
 import pb, { adminauth, filecdn, colNames } from "@/lib/pb";
 import type { RecordModel } from "pocketbase";
@@ -61,7 +61,7 @@ adminauth()
 <BaseLayout>
   <Navbar />
   <Carousel items={$cols.get()} />
-  <!-- <HeroProduct /> -->
+  <!-- <Featured /> -->
   <ProductGroups />
   <Incentive />
   <TrustedBy />

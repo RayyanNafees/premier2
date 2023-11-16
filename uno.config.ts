@@ -8,7 +8,6 @@ import {
   // presetAttributify,
 } from 'unocss'
 import { presetForms } from '@julr/unocss-preset-forms'
-import { presetDaisy } from 'unocss-preset-daisy'
 
 export default defineConfig({
   presets: [
@@ -23,7 +22,6 @@ export default defineConfig({
     // presetAttributify(),
     presetForms(),
     presetTypography(),
-    presetDaisy(),
   ],
 
   safelist: ['i-mdi:facebook', 'i-mdi-github'],
