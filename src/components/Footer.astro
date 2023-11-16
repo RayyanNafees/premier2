@@ -1,48 +1,63 @@
 ---
-const address = `11/2341, 
-Atish Bazaar, 
-Saharanpur - 247001, 
-Uttar Pradesh, India`
-
-const phone = '+91 9837 6409 54'
-const whatsapp = '+919997688556'
-const email = 'premierentp97@gmail.com'
+import { address, email, number, walink } from '@/lib/const'
 ---
-<footer class="bg-gray-800" aria-labelledby="footer-heading my-10">
-  <h2 id="footer-heading" class="sr-only">Footer</h2>
-  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-    
-    <div class="border-gray-700 pt-8 lg:flex lg:items-center lg:justify-between xl:mt-0">
+
+<footer class='bg-gray-800' aria-labelledby='footer-heading my-10'>
+  <h2 id='footer-heading' class='sr-only'>Footer</h2>
+  <div class='max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8'>
+    <div
+      class='border-gray-700 pt-8 lg:flex lg:items-center lg:justify-between xl:mt-0'
+    >
       <div>
-        <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Premier Enterprises</h3>
-        <p class="mt-2 text-base text-gray-300">{address}</p>
+        <h3
+          class='text-sm font-semibold text-gray-400 tracking-wider uppercase'
+        >
+          Premier Enterprises
+        </h3>
+        <p class='mt-2 text-base text-gray-300'>{address}</p>
       </div>
-      <form class="mt-4 sm:flex sm:max-w-md lg:mt-0">
-        <label for="email-address" class="sr-only">Email address</label>
-        <input type="email" name="email-address" id="email-address" autocomplete="email" required class="appearance-none min-w-0 w-full bg-white border border-transparent rounded-md py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white focus:border-white focus:placeholder-gray-400 sm:max-w-xs" placeholder="Enter your email">
-        <div class="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
-          <button type="submit" class="w-full bg-indigo-500 border border-transparent rounded-md py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">Contact Us</button>
+      <form class='mt-4 sm:flex sm:max-w-md lg:mt-0'>
+        <label for='email-address' class='sr-only'>Email address</label>
+        <input
+          type='email'
+          name='email-address'
+          id='email-address'
+          autocomplete='email'
+          required
+          class='appearance-none min-w-0 w-full bg-white border border-transparent rounded-md py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white focus:border-white focus:placeholder-gray-400 sm:max-w-xs'
+          placeholder='Enter your email'
+        />
+        <div class='mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0'>
+          <button
+            type='submit'
+            class='w-full bg-indigo-500 border border-transparent rounded-md py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500'
+            >Contact Us</button
+          >
         </div>
       </form>
     </div>
-    <div class="mt-8 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between">
-      <div class="flex space-x-6 md:order-2">
-        <a href={'tel:'+phone} class="text-gray-400 hover:text-gray-300">
-          <span class="sr-only">Phone Number</span>
-          <span class="i-mdi:phone-outline h-6 w-6"/>
+    <div
+      class='mt-8 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between'
+    >
+      <div class='flex space-x-6 md:order-2'>
+        <a href={'tel:+91' + number} class='text-gray-400 hover:text-gray-300'>
+          <span class='sr-only'>Phone Number</span>
+          <span class='i-mdi:phone-outline h-6 w-6'></span>
         </a>
 
-        <a href={'https://wa.me/'+whatsapp} class="text-gray-400 hover:text-gray-300">
-          <span class="sr-only">Whatsapp</span>
-          <span class="i-mdi:whatsapp h-6 w-6"/>
+        <a href={walink} class='text-gray-400 hover:text-gray-300'>
+          <span class='sr-only'>Whatsapp</span>
+          <span class='i-mdi:whatsapp h-6 w-6'></span>
         </a>
 
-        <a href={'mailto:'+email} class="text-gray-400 hover:text-gray-300">
-          <span class="sr-only">Email</span>
-          <span class="i-mdi:email-outline h-6 w-6" />
+        <a href={'mailto:' + email} class='text-gray-400 hover:text-gray-300'>
+          <span class='sr-only'>Email</span>
+          <span class='i-mdi:email-outline h-6 w-6'></span>
         </a>
       </div>
-      <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">&copy; 2020 Premier Enterprises. All rights reserved.</p>
+      <p class='mt-8 text-base text-gray-400 md:mt-0 md:order-1'>
+        &copy; 2020 Premier Enterprises. All rights reserved.
+      </p>
     </div>
   </div>
 </footer>

@@ -1,15 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Navbar from '@/components/Navbar.astro'
-
-const address = `11/2341
-Atish Bazaar
-Saharanpur - 247001
-Uttar Pradesh, India`.replace(/\n/g, '<br />')
-
-const phone = '+91 9837 6409 54'
-const whatsapp = '+919997688556'
-const email = 'premierentp97@gmail.com'
+import {address_html, email, phone} from '@/lib/const'
 ---
 
 <BaseLayout>
@@ -123,7 +115,7 @@ const email = 'premierentp97@gmail.com'
             <h3 class='text-lg font-medium text-white'>Contact information</h3>
             <p
               class='mt-6 text-base text-indigo-50 max-w-3xl'
-              set:html={address}
+              set:html={address_html}
             />
             <dl class='mt-8 space-y-6'>
               <dt><span class='sr-only'>Phone number</span></dt>

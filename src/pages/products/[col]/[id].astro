@@ -5,6 +5,9 @@ import pb, { filecdn } from '@/lib/pb'
 import type { RecordModel } from 'pocketbase'
 const { col = 'FURNITURE', id = 'yivca5y7aebs6ub' } = Astro.params
 
+// TODO: Implement View Transitions
+// TODO: Optimise using url search params for faster detail load
+
 const {
   name,
   images,
@@ -16,6 +19,9 @@ const {
   .collection(col.toUpperCase())
   .getOne(id)
   .catch((e) => ({}) as RecordModel)
+
+const detailify = (det: string) =>
+  det.replace(/<ul>/g, '<ul class="list-disc">')
 ---
 
 <Layout>
@@ -24,7 +30,7 @@ const {
     subtitle={model}
     {size}
     {views}
-    {details}
+    details={detailify(details)}
     images={images?.map((src: string) => filecdn(col.toUpperCase(), id, src))}
   />
 </Layout>

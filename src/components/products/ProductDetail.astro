@@ -1,27 +1,18 @@
 ---
 import { Image } from 'astro:assets'
-
-const walink = 'https://wa.me/+919193497273'
+import { email, number, walink } from '@/lib/const'
 export interface Props {
   title: string
   subtitle: string
   views?: number
   details: string
-  size: string
+  size?: string
   price?: number
   images: Array<string>
   color?: string
 }
 
-const {
-  title = 'Brand Name',
-  subtitle = 'The Catcher in the type',
-  views = 4,
-  details = 'lorem ipsum dolor sit amet',
-  size = '100x100',
-  images = ['https://dummyimage.com/400x400'],
-  color = null,
-} = Astro.props
+const { title, subtitle, views, details, size, images, color } = Astro.props
 ---
 
 <section class='text-gray-600 body-font overflow-hidden'>
@@ -51,21 +42,25 @@ const {
                 ))
             }
 
-            <span class='text-gray-600 ml-3'
-              ><span class='w-6 h-6 i-mdi:eye-outline'></span> {views}</span
-            >
+            {
+              views && (
+                <span class='text-gray-600 ml-3'>
+                  <span class='w-6 h-6 i-mdi:eye-outline' /> {views}
+                </span>
+              )
+            }
           </span>
           <span
             class='flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s'
           >
-            <a class='text-gray-500' href={walink}>
-              <span class='w-6 h-6 i-mdi:facebook block'></span>
+            <a class='text-gray-500' href={'tel:+91' + number}>
+              <span class='w-6 h-6 i-mdi:phone-outline block'></span>
             </a>
             <a class='text-gray-500' href={walink}>
               <span class='w-6 h-6 i-mdi:whatsapp block'></span>
             </a>
-            <a class='text-gray-500' href={walink}>
-              <span class='w-6 h-6 i-mdi:chat block'></span>
+            <a class='text-gray-500' href={'mailto:' + email}>
+              <span class='w-6 h-6 i-mdi:email-outline block'></span>
             </a>
           </span>
         </div>
@@ -83,17 +78,18 @@ const {
               </div>
             )
           }
-          <div class='flex ml-6 items-center'>
-            <span class='mr-3'>Size:</span>
-            <div class='relative'>
-              <span
-                class='rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10'
-              >
-                {size}
-              </span>
-               =
-            </div>
-          </div>
+          {
+            size && (
+              <div class='flex ml-6 items-center'>
+                <span class='mr-3'>Size:</span>
+                <div class='relative'>
+                  <span class='rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10'>
+                    {size}
+                  </span>
+                </div>
+              </div>
+            )
+          }
         </div>
         <div class='flex'>
           <span class='title-font font-medium text-2xl text-gray-900'>
@@ -103,7 +99,7 @@ const {
             <button
               class='flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded'
             >
-              Buy
+              Contact
             </button></a
           >
           <button
