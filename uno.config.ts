@@ -28,6 +28,7 @@ export default defineConfig({
   safelist: ['i-mdi:facebook', 'i-mdi-github'],
 
   rules:[
-    ['w-content', {width: 'max-content' }]
+    ['w-content', {width: 'max-content' }],
+    ['max-w-content', {'max-width': 'max-content' }],
   ]
 })
