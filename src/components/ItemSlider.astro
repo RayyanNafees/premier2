@@ -2,6 +2,7 @@
 import { $cols } from '@/lib/store'
 import type { Collection } from './products/types'
 import { Image } from 'astro:assets'
+import '@/styles/item-slider.css' // TODO: Change the css to uno-css
 
 const collections = []
 const cols = $cols.get().slice(0, 12)
@@ -20,9 +21,11 @@ for (let i = 0, currentArray; i < cols.length; i++) {
       image,
     })
 }
+
+
 ---
 
-<link rel='stylesheet' type='text/css' href='/css/style.css' />
+<!-- <link rel='stylesheet' type='text/css' href='/css/style.css' /> -->
 <script is:inline src='/js/modernizr.js'></script>
 <h2
   class='text-3xl font-extrabold tracking-tight text-gray-900 py-10 pt-20 w-full text-center'
