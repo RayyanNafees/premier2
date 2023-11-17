@@ -147,15 +147,14 @@ const isActive = (href: string) => href === current_url
         </button>
       </div>
       <div class='hidden lg:ml-4 lg:flex lg:items-center'>
-        <a href='/cart'>
-          <button
-            type='button'
-            class='flex-shrink-0 bg-white p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-          >
-            <span class='sr-only'>Shopping Cart</span>
-            <!-- Heroicon name: outline/bell -->
-            <span class='h-6 w-6 i-mdi:cart-outline text-gray-400'></span>
-          </button>
+        <a
+          href='/cart'
+          class='block flex-shrink-0 bg-white p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+        >
+          <span class='sr-only'>Shopping Cart</span>
+          <!-- Heroicon name: outline/bell -->
+          <span class='h-6 w-6 i-mdi:cart-outline text-gray-400 border-red'
+          ></span>
         </a>
       </div>
     </div>
