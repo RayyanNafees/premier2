@@ -8,7 +8,7 @@ import netlify from "@astrojs/netlify/functions";
 // https://astro.build/config
 export default defineConfig({
   site:'https://premierentp.netlify.app',
-  output: "hybrid",
+  output: "server",
   prefetch: {
     prefetchAll: true
   },
