@@ -1,9 +1,11 @@
 import $ from 'jquery'
+import csstransforms from 'modernizr-esm/feature/css/transforms'
+import cssanimations from 'modernizr-esm/feature/css/animations'
+import prefixed from 'modernizr-esm/src/prefixed'
 
-const {Modernizr} = window
-
+console.log({cssanimations, csstransforms})
 class CatSlider {
-  constructor(options, element) {
+  constructor (options, element) {
     this.$el = $(element);
     this._init(options);
   }
@@ -18,8 +20,8 @@ class CatSlider {
       animation: 'animationend',
     };
     this.animEndEventName =
-      animEndEventNames[Modernizr.prefixed('animation')];
-    this.support = Modernizr.csstransforms && Modernizr.cssanimations;
+      animEndEventNames[prefixed('animation')];
+    this.support = csstransforms && cssanimations;
     this.isAnimating = false;
     this.current = 0;
     const $currcat = this.$categories.eq(0);
@@ -129,5 +131,7 @@ $.fn.catslider = function (options) {
   }
   return instance;
 };
-
-export default $
+// TODO: Make a way to integrate into the slider
+$(function () {
+  $('#mi-slider').catslider()
+})

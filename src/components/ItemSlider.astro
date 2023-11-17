@@ -2,10 +2,10 @@
 import { $cols } from '@/lib/store'
 import type { Collection } from './products/types'
 import { Image } from 'astro:assets'
-import '@/styles/item-slider.css' // TODO: Change the css to uno-css
+import '../styles/item-slider.css' // TODO: Change the css to uno-css
 
 const collections = []
-const cols = $cols.get().slice(0, 12)
+const cols = $cols.get().slice(0, 12) // TODO: Add the polyfill for multiple in future
 
 for (let i = 0, currentArray; i < cols.length; i++) {
   if (!(i % 4)) collections.push([])
@@ -23,7 +23,6 @@ for (let i = 0, currentArray; i < cols.length; i++) {
 }
 ---
 
-<script is:inline src='/js/modernizr.js'></script>
 <h2
   class='text-3xl font-extrabold tracking-tight text-gray-900 py-10 pt-20 w-full text-center'
 >
@@ -61,10 +60,4 @@ for (let i = 0, currentArray; i < cols.length; i++) {
 </div>
 
 <!-- /container -->
-
-<script>
-  import $ from '@/lib/catslider'
-  $(function () {
-    $('#mi-slider').catslider()
-  })
-</script>
+<script src="../lib/catslider.js"></script>
