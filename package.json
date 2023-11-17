@@ -15,9 +15,11 @@
     "@astrojs/sitemap": "^3.0.3",
     "@splidejs/splide": "^4.1.4",
     "astro": "^3.5.4",
+    "astro-link": "^1.2.1",
     "astrojs-service-worker": "^1.1.0",
     "colorthief": "^2.4.0",
     "get-pixels": "^3.3.3",
+    "jquery": "^3.7.1",
     "nanostores": "^0.9.5",
     "pocketbase": "^0.19.0",
     "quantize": "^1.0.2"
@@ -26,10 +28,12 @@
     "@iconify-json/mdi": "^1.1.55",
     "@julr/unocss-preset-forms": "^0.1.0",
     "@types/get-pixels": "^3.3.4",
+    "@types/jquery": "^3.5.27",
     "@types/ndarray": "^1.0.14",
     "@types/quantize": "^1.0.2",
     "@unocss/reset": "^0.57.4",
     "ndarray": "^1.0.19",
+    "sharp": "^0.32.6",
     "unocss": "^0.57.4",
     "unocss-preset-extra": "^0.5.3"
   }

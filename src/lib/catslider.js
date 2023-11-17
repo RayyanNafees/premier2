@@ -1,5 +1,7 @@
 import $ from 'jquery'
 
+const {Modernizr} = window
+
 class CatSlider {
   constructor(options, element) {
     this.$el = $(element);
@@ -127,3 +129,5 @@ $.fn.catslider = function (options) {
   }
   return instance;
 };
+
+export default $
