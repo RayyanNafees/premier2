@@ -8,7 +8,7 @@ export interface Props {
   a_href: string
   image: string
 }
-const { title, image, a_text = 'Buy Now', a_href } = Astro.props
+const { title, image, a_text = 'Explore', a_href } = Astro.props
 
 const subtitle = Astro.props.subtitle
   .replace(/<ul>/g, '<ul class="list-disc  w-content">')
@@ -38,7 +38,7 @@ const btn_class = 'btn-' + tcls
   <div aria-hidden='true' class='absolute inset-0 bg-gray-900 opacity-50'></div>
 
   <div
-    class='relative max-w-7xl mx-auto px-6 flex flex-col items-end text-end justify-end sm:py-15 lg:px-0 animated animated-fade-in-right'
+    class='relative max-w-7xl mx-auto px-6 flex flex-col items-end text-end justify-end sm:py-15 lg:px-0'
   >
     <h1 class='text-4xl font-extrabold tracking-tight text-white lg:text-6xl'>
       {title}
