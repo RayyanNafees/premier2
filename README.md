@@ -11,3 +11,4 @@
 - Use Service workers for full offline support & Sync when user is online
 
 - TODO: Enable [SendGrid](https://app.netlify.com/sites/premierentp/integrations/emails) mail service for contact emails with Premier email
+- TODO: Change splidejs carousel to a lighter one (make custom with daisyui)

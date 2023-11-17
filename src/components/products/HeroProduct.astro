@@ -43,8 +43,9 @@ const btn_class = 'btn-' + tcls
     <h1 class='text-4xl font-extrabold tracking-tight text-white lg:text-6xl'>
       {title}
     </h1>
-    <div class='flex items-start justify-start text-left max-w-4xl'>
-      <p class='mt-4 text-xl text-white' set:html={subtitle} />
+
+    <div class='flex items-start justify-start text-left max-w-4xl pt-5 text-white'>
+       <p class='mt-4 text-xl text-white' set:html={subtitle} />
     </div>
     <div class='w-[50%]'>
       <a
@@ -97,7 +98,6 @@ const btn_class = 'btn-' + tcls
           if (btn && btn.style) {
             const btnIntrvl = setInterval(() => {
               const [r, g, b] = choice(palette)
-              console.log({r,g,b})
               btn.style.background = `rgb(${r}, ${g}, ${b})`
             }, 500)
           }
