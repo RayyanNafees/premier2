@@ -10,9 +10,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/netlify": "^3.0.4",
     "@astrojs/prefetch": "^0.4.1",
     "@astrojs/sitemap": "^3.0.3",
+    "@astrojs/vercel": "^5.2.0",
     "@splidejs/splide": "^4.1.4",
     "astro": "^3.5.5",
     "astro-link": "^1.2.1",

@@ -3,21 +3,21 @@ import sitemap from "@astrojs/sitemap";
 import UnoCSS from "unocss/astro";
 import serviceWorker from "astrojs-service-worker";
 
-import netlify from "@astrojs/netlify/functions";
+import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
-  site:'https://premierentp.netlify.app',
+  site: 'https://premierentp.netlify.app',
   output: "server",
   prefetch: {
     prefetchAll: true
   },
-  adapter: netlify({ edgeMiddleware: true }),
-  integrations: [
-    UnoCSS({
-      injectReset: true,
-    }),
-    sitemap(),
-    // serviceWorker()
-  ],
+  adapter: vercel({
+    edgeMiddleware: true
+  }),
+  integrations: [UnoCSS({
+    injectReset: true
+  }), sitemap()
+  // serviceWorker()
+  ]
 });
