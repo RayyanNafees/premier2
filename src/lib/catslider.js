@@ -3,7 +3,6 @@ import csstransforms from 'modernizr-esm/feature/css/transforms'
 import cssanimations from 'modernizr-esm/feature/css/animations'
 import prefixed from 'modernizr-esm/src/prefixed'
 
-console.log({cssanimations, csstransforms})
 class CatSlider {
   constructor (options, element) {
     this.$el = $(element);
