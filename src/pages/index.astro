@@ -3,9 +3,9 @@ export const prerender = false
 import Navbar from "../components/Navbar.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
-import ItemSlider from "../components/ItemSlider.astro";
+// import ItemSlider from "../components/ItemSlider.astro";
 // import Incentive from "../components/Incentive.astro";
-// import Carousel from "../components/products/Carousel.astro";
+import Carousel from "../components/products/Carousel.astro";
 // import WideProduct from "../components/products/WideProduct.astro";
 import ProductGroups from "../components/products/ProductGroups.astro";
 import { $col_ids, $cols } from "@/lib/store";
@@ -60,9 +60,9 @@ adminauth()
 
 <BaseLayout>
   <Navbar />
-  <!-- <Carousel items={$cols.get()} /> -->
+  <Carousel items={$cols.get()} />
   <ProductGroups />
-  <ItemSlider />
+  <!-- <ItemSlider /> -->
   <!-- <Incentive /> -->
   <!-- <TrustedBy /> -->
   <!-- <WideProduct /> -->
