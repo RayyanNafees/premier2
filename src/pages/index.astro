@@ -1,5 +1,4 @@
 ---
-export const prerender = false
 import Navbar from '../components/Navbar.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Footer from '../components/Footer.astro'
@@ -14,8 +13,7 @@ import type { RecordModel } from 'pocketbase'
 import Collections from '../components/products/Collections.astro'
 
 import { capitalize_col } from '@/utils/transforms'
-// import type { Collection } from '@/components/products/types'
-// const collections: Collection[] = []
+
 await adminauth()
   .then(async () => {
     if (pb.authStore?.isAdmin) {
@@ -44,12 +42,6 @@ await adminauth()
             product?.images?.length &&
             !$col_ids.get().has(name)
           ) {
-            // collections.push({
-            //   name,
-            //   image: filecdn(c, product.id, product.images[0]),
-            //   href: `/products/${c}`,
-            //   details: product.details,
-            // })
             $cols.set(
               $cols.get().concat({
                 name,
@@ -67,7 +59,6 @@ await adminauth()
     console.log("Couldn't Authorize as Admin!", e, `(${e.message})`),
   )
 
-// console.log(collections)
 ---
 
 <BaseLayout>

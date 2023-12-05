@@ -11,6 +11,9 @@ dependencies:
   '@astrojs/vercel':
     specifier: ^5.2.0
     version: 5.2.0(astro@3.6.4)
+  '@nanostores/persistent':
+    specifier: ^0.9.1
+    version: 0.9.1(nanostores@0.9.5)
   '@splidejs/splide':
     specifier: ^4.1.4
     version: 4.1.4
@@ -2034,6 +2037,15 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    dev: false
+
+  /@nanostores/persistent@0.9.1(nanostores@0.9.5):
+    resolution: {integrity: sha512-ow57Hxm5VMaI5GHET/cVk8hX/iKMmbhcGrB9owfN8p8OHiiJgUlYxe1giacwlAALJXAh2t8bxXh42hHb64BCEA==}
+    engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
+    peerDependencies:
+      nanostores: ^0.9.0
+    dependencies:
+      nanostores: 0.9.5
     dev: false
 
   /@nodelib/fs.scandir@2.1.5:

@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.0.3",
     "@astrojs/vercel": "^5.2.0",
+    "@nanostores/persistent": "^0.9.1",
     "@splidejs/splide": "^4.1.4",
     "astro": "^3.6.4",
     "astro-link": "^1.2.1",
