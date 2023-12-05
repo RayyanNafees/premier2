@@ -4,23 +4,28 @@ import type { Collection } from './products/types'
 import { Image } from 'astro:assets'
 import '../styles/item-slider.css' // TODO: Change the css to uno-css
 
-const collections = []
-const cols = $cols.get().slice(0, 12) // TODO: Add the polyfill for multiple in future
+const item_collection: Array<Array<Collection>> = []
 
-for (let i = 0, currentArray; i < cols.length; i++) {
-  if (!(i % 4)) collections.push([])
+export interface Props {
+  collections: Array<Collection>
+}
 
-  const { name, href, image } = cols[i]
+const { collections=[] } = Astro.props // TODO: Add the polyfill for multiple in future
 
-  currentArray = collections.at(-1) as Array<Collection>
+collections?.map((col, i) => {
+  if (!(i % 4)) item_collection.push([])
 
-  if (Array.isArray(currentArray))
-    currentArray.push({
+  const { name, href, image } = collections[i]
+
+  const lastArray = item_collection.at(-1) as Array<Collection>
+
+  if (Array.isArray(lastArray))
+    lastArray.push({
       name,
       href,
       image,
     })
-}
+})
 ---
 
 <h2
@@ -31,7 +36,7 @@ for (let i = 0, currentArray; i < cols.length; i++) {
 <div class='main pt-24 my-auto sm:py-10'>
   <div id='mi-slider' class='mi-slider'>
     {
-      collections.map((colArray) => (
+      item_collection.map((colArray) => (
         <ul>
           {colArray.map((col: Collection) => (
             <li>
@@ -60,4 +65,4 @@ for (let i = 0, currentArray; i < cols.length; i++) {
 </div>
 
 <!-- /container -->
-<script src="../lib/catslider.js"></script>
+<script src='../lib/catslider.js'></script>

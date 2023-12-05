@@ -13,7 +13,7 @@
     "@astrojs/sitemap": "^3.0.3",
     "@astrojs/vercel": "^5.2.0",
     "@splidejs/splide": "^4.1.4",
-    "astro": "^3.6.0",
+    "astro": "^3.6.4",
     "astro-link": "^1.2.1",
     "astrojs-service-worker": "^1.1.0",
     "get-pixels": "^3.3.3",
@@ -24,16 +24,16 @@
     "quantize": "^1.0.2"
   },
   "devDependencies": {
-    "@iconify-json/mdi": "^1.1.55",
+    "@iconify-json/mdi": "^1.1.58",
     "@julr/unocss-preset-forms": "^0.1.0",
     "@types/get-pixels": "^3.3.4",
     "@types/jquery": "^3.5.29",
     "@types/ndarray": "^1.0.14",
     "@types/quantize": "^1.0.2",
-    "@unocss/reset": "^0.57.7",
+    "@unocss/reset": "^0.58.0",
     "ndarray": "^1.0.19",
-    "sharp": "^0.32.6",
-    "unocss": "^0.57.7",
+    "sharp": "^0.33.0",
+    "unocss": "^0.58.0",
     "unocss-preset-extra": "^0.5.3"
   }
 }

@@ -1,47 +1,55 @@
 ---
 export const prerender = false
-import Navbar from "../components/Navbar.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Footer from "../components/Footer.astro";
-import ItemSlider from "../components/ItemSlider.astro";
+import Navbar from '../components/Navbar.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Footer from '../components/Footer.astro'
+import ItemSlider from '../components/ItemSlider.astro'
 // import Incentive from "../components/Incentive.astro";
-import Carousel from "../components/products/Carousel.astro";
+import Carousel from '../components/products/Carousel.astro'
 // import WideProduct from "../components/products/WideProduct.astro";
-import ProductGroups from "../components/products/ProductGroups.astro";
-import { $col_ids, $cols } from "@/lib/store";
-import pb, { adminauth, filecdn, colNames } from "@/lib/pb";
-import type { RecordModel } from "pocketbase";
+// import ProductGroups from '../components/products/ProductGroups.astro'
+import { $col_ids, $cols } from '@/lib/store'
+import pb, { adminauth, filecdn, colNames } from '@/lib/pb'
+import type { RecordModel } from 'pocketbase'
+import Collections from '../components/products/Collections.astro'
 
-import { capitalize_col } from "@/utils/transforms";
-
-adminauth()
+import { capitalize_col } from '@/utils/transforms'
+// import type { Collection } from '@/components/products/types'
+// const collections: Collection[] = []
+await adminauth()
   .then(async () => {
     if (pb.authStore?.isAdmin) {
-      const col_names = await colNames(false);
+      const col_names = await colNames(false)
 
       await Promise.all(
         col_names.map(async (c) => {
-          if (c == "users") return;
+          if (c == 'users') return
 
           const product = await pb
             .collection(c)
-            .getFirstListItem("")
+            .getFirstListItem('')
             .catch((e) => {
               console.log(
                 `[${e.data.code}]`,
                 c,
-                "=>",
+                '=>',
                 `${e.data.message} <${e.name}>`,
-              );
-              return {} as RecordModel;
-            });
+              )
+              return {} as RecordModel
+            })
 
-          const name = capitalize_col(c);
+          const name = capitalize_col(c)
           if (
             product?.id &&
             product?.images?.length &&
             !$col_ids.get().has(name)
           ) {
+            // collections.push({
+            //   name,
+            //   image: filecdn(c, product.id, product.images[0]),
+            //   href: `/products/${c}`,
+            //   details: product.details,
+            // })
             $cols.set(
               $cols.get().concat({
                 name,
@@ -49,23 +57,28 @@ adminauth()
                 href: `/products/${c}`,
                 details: product.details,
               }),
-            );
+            )
           }
         }),
-      );
+      )
     }
   })
-  .catch((e) => console.log("Couldn't Authorize as Admin!", e, `(${e.message})`));
+  .catch((e) =>
+    console.log("Couldn't Authorize as Admin!", e, `(${e.message})`),
+  )
+
+// console.log(collections)
 ---
 
 <BaseLayout>
   <Navbar />
   <Carousel items={$cols.get()} />
-  <ProductGroups />
-  <ItemSlider />
+  <Collections collections={$cols.get()} />
+
+  <ItemSlider collections={$cols.get().slice(0, 12)} />
   <!-- <Incentive /> -->
   <!-- <TrustedBy /> -->
   <!-- <WideProduct /> -->
-  <div class="space-y-160"></div>
+  <div class='space-y-160'></div>
   <Footer />
 </BaseLayout>
